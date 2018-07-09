@@ -114,6 +114,10 @@
       <Project>{03db819a-e485-462d-ae77-c25c02036fa0}</Project>
       <Name>AluminiosNegocio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetodosAyuda\MetodosAyuda.csproj">
+      <Project>{4ece95e8-a0db-4721-a462-8376894d9a9f}</Project>
+      <Name>MetodosAyuda</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editar.png" />

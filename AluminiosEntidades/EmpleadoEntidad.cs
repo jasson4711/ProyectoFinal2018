@@ -9,6 +9,6 @@ namespace AluminiosEntidades
     public class EmpleadoEntidad
     {
         public double Sueldo { get; set; }
-
+        public string Clave { get; set; }
     }
 }

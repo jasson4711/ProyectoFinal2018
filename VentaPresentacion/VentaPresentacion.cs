@@ -14,6 +14,8 @@ namespace VentaPresentacion
     public partial class VentaPresentacion : Form
     {
         ClienteEntidad clienteActual = new ClienteEntidad();
+        ProductoEntidadMostrar productoActual = new ProductoEntidadMostrar();
+        List<ProductoEntidadMostrar> listaProductos = new List<ProductoEntidadMostrar>();
         public VentaPresentacion()
         {
             InitializeComponent();
@@ -22,13 +24,20 @@ namespace VentaPresentacion
 
         private void pictureBoxBuscar_Click(object sender, EventArgs e)
         {
-
-            SeleccionarClientes frm = new SeleccionarClientes();
-            if (frm.ShowDialog() == DialogResult.OK)
+            try
             {
-                clienteActual = ClienteNegocio.DevolverClientePorID(frm.IdCliente);
-                LlenarCamposTextoCliente();
+                SeleccionarClientes frm = new SeleccionarClientes();
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    clienteActual = ClienteNegocio.DevolverClientePorID(frm.IdCliente);
+                    LlenarCamposTextoCliente();
+                }
             }
+            catch
+            {
+                MessageBox.Show("No se ha podido obtener el cliente");
+            }
+
 
 
 
@@ -178,7 +187,7 @@ namespace VentaPresentacion
 
         private bool ValidarCampos()
         {
-            if (txtCedula.Text == "")
+            if (txtCedula.Text == "" || !MetodosAyuda.Metodos.verificadorCédula(txtCedula.Text))
             {
                 txtCedula.Focus();
                 MessageBox.Show("Ingrese una cédula correcta");
@@ -196,7 +205,7 @@ namespace VentaPresentacion
                 MessageBox.Show("Ingrese su nombre");
                 return false;
             }
-            
+
             else if (txtDireccion.Text == "")
             {
                 txtDireccion.Focus();
@@ -219,6 +228,99 @@ namespace VentaPresentacion
             {
                 return true;
             }
+        }
+
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SeleccionarProducto frm = new SeleccionarProducto();
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    productoActual = ProductoNegocio.DevolverProductoPorID(frm.IdProducto);
+                    LlenarCamposTextoProducto();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("No se ha podido obtener el producto");
+            }
+
+        }
+
+        private void LlenarCamposTextoProducto()
+        {
+            txtVentaNombre.Text = productoActual.Nombre + " " + productoActual.Descripcion;
+            txtVentaCantidad.Text = productoActual.Cantidad.ToString();
+            txtVentaPrecio.Text = productoActual.Precio.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (VerificarExistenciaMaterial())
+            {
+                listaProductos.Add(productoActual);
+                dgvDetallesCompra.DataSource = null;
+                dgvDetallesCompra.DataSource = listaProductos;
+            }
+        }
+
+        private bool VerificarExistenciaMaterial()
+        {
+            if (Convert.ToInt32(txtVentaCantidad.Text) > productoActual.Cantidad)
+            {
+                MessageBox.Show("No dispone de la cantidad indicada, ¿desea generar el producto?");
+                return false;
+            }
+            
+            return true;
+        }
+
+        private void txtVentaCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) || txtVentaCantidad.Text.Length >= 3)
+            {
+                //MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void AgregarProductosVenta()
+        {
+            bool productoYaExiste = false;
+            for (int i = 0; i < dgvDetallesCompra.RowCount; i++)
+            {
+                if (productoActual.Id== int.Parse(dgvDetallesCompra.Rows[i].Cells["Id"].Value.ToString()))
+                {
+                    var cantidadAnterior = Convert.ToInt32(
+                        dgvDetallesCompra.Rows[i].Cells["Cantidad"].Value);
+                    dataGridView_DetalleVenta.Rows[i].Cells["Cantidad"].Value =
+                        cantidadAnterior + Convert.ToInt32(textBox_CantidadProducto.Text);
+                    dataGridView_DetalleVenta.Rows[i].Cells["TotalProducto"].Value =
+                        Convert.ToDouble(dataGridView_DetalleVenta.Rows[i].Cells["Precio"].Value) *
+                        Convert.ToInt32(dataGridView_DetalleVenta.Rows[i].Cells["Cantidad"].Value);
+                    productoYaExiste = true;
+                    LimpiarCamposProductos();
+                    textBox_CantidadProducto.ReadOnly = true;
+                }
+
+            }
+            if (!productoYaExiste)
+            {
+                listaDetalleVentas.Add(new DetalleVentas(
+                    int.Parse(lblCod.Text),
+            textBox_NombreProducto.Text,
+            textBox_TamañoProducto.Text,
+            Convert.ToDouble(textBox_PrecioProducto.Text),
+            Convert.ToInt32(textBox_CantidadProducto.Text),
+            Convert.ToDouble(textBox_PrecioProducto.Text) * Convert.ToInt32(textBox_CantidadProducto.Text)));
+                dataGridView_DetalleVenta.DataSource = null;
+                dataGridView_DetalleVenta.DataSource = listaDetalleVentas;
+                LimpiarCamposProductos();
+                textBox_CantidadProducto.ReadOnly = true;
+            }
+
         }
     }
 }

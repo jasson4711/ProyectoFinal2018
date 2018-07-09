@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace AluminiosEntidades
 {
-    public class ProductoEntidad
+    public class ProductoEntidadMostrar
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public decimal Precio
+        public decimal Precio { get; set; }
+        public int Cantidad { get; set; }
+        public decimal Precio_Total
         {
             get
             {
-                return listaMateriales.Sum(x => x.Precio * x.Cantidad);
+                return Precio * Cantidad;
             }
-
+            set { }
         }
-        public int Cantidad { get; set; }
-        public List<ProductoDetalleEntidad> listaMateriales { get; set; }
+
     }
 }

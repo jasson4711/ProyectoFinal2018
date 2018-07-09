@@ -16,6 +16,7 @@ namespace AluminiosEntidades
         public double Total
         {
             get { return this.ListaDetalles.Sum(x => x.PrecioUnitario * x.Cantidad)*Porcentaje_Ganancia/100; }
+
         }
         public List<DetalleEntidad> ListaDetalles { get; set; }
 

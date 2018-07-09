@@ -39,7 +39,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.dgvClientes);
-            this.panel1.Location = new System.Drawing.Point(12, 41);
+            this.panel1.Location = new System.Drawing.Point(12, 29);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(636, 352);
             this.panel1.TabIndex = 0;

@@ -18,8 +18,8 @@ namespace AluminiosDatos
                 cn.Open();
                 //todo cambiar los campos a la base del proyecto
                 String sql = @"SELECT [Id_Cli]
-                             ,[Nom_Cli]
                              ,[Ape_Cli]
+                             ,[Nom_Cli]
                              ,[Ced_Cli]
                              ,[Dir_Cli]
                              ,[Tel_Cli]
@@ -35,6 +35,72 @@ namespace AluminiosDatos
                 }
             }
             return lista;
+        }
+
+        public static int GuardarCliente(ClienteEntidad cliente)
+        {
+            
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                //todo cambiar los campos a la base del proyecto
+                String sql = @"INSERT INTO [dbo].[Clientes]
+                                       ([Ced_Cli]
+                                       ,[Nom_Cli]
+                                       ,[Ape_Cli]
+                                       ,[Dir_Cli]
+                                       ,[Tel_Cli]
+                                       ,[Email_Cli])
+                                 VALUES(
+                                       @ced
+                                       ,@nom
+                                       ,@ape
+                                       ,@dir
+                                       ,@tel
+                                       ,@email);
+                                SELECT SCOPE_IDENTITY()";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ced", cliente.Cedula);
+                    cmd.Parameters.AddWithValue("@nom", cliente.Nombre);
+                    cmd.Parameters.AddWithValue("@ape", cliente.Apellido);
+                    cmd.Parameters.AddWithValue("@dir", cliente.Direccion);
+                    cmd.Parameters.AddWithValue("@tel", cliente.Telefono);
+                    cmd.Parameters.AddWithValue("@email", cliente.Email);
+                    cliente.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                return cliente.Id;
+            }
+        }
+
+        public static void ActualizarCliente(ClienteEntidad clienteNuevo)
+        {
+
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"UPDATE [dbo].[Clientes]
+                               SET [Ced_Cli] = @ced
+                                  ,[Nom_Cli] = @nom
+                                  ,[Ape_Cli] = @ape
+                                  ,[Dir_Cli] = @dir
+                                  ,[Tel_Cli] = @tel
+                                  ,[Email_Cli] = @email
+                               WHERE [Id_Cli]= @clienteId";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ced", clienteNuevo.Cedula);
+                    cmd.Parameters.AddWithValue("@nom", clienteNuevo.Nombre);
+                    cmd.Parameters.AddWithValue("@ape", clienteNuevo.Apellido);
+                    cmd.Parameters.AddWithValue("@dir", clienteNuevo.Direccion);
+                    cmd.Parameters.AddWithValue("@tel", clienteNuevo.Telefono);
+                    cmd.Parameters.AddWithValue("@email", clienteNuevo.Email);
+                    cmd.Parameters.AddWithValue("@clienteId", clienteNuevo.Id);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+
         }
 
         public static ClienteEntidad DevolverClientePorID(int idCliente)

@@ -29,21 +29,40 @@ namespace VentaPresentacion
 
         private void SeleccionarClientes_Load(object sender, EventArgs e)
         {
-            CargarListaClientes();
+            try
+            {
+                CargarListaClientes();
+            }
+            catch
+            {
+                MessageBox.Show("No se han podido mostrar los datos");
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
+            
         }
 
         private void CargarListaClientes()
         {
-            dgvClientes.AutoGenerateColumns = false;
+            //dgvClientes.AutoGenerateColumns = false;
             dgvClientes.DataSource = ClienteNegocio.DevolverListaClientes();
         }
 
 
-        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+
+        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
                 return;
-            _idCliente = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells["ID"].Value);
+            _idCliente = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells["Id"].Value);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

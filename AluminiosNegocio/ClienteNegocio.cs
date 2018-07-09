@@ -5,18 +5,43 @@ using System.Text;
 using System.Threading.Tasks;
 using AluminiosEntidades;
 using AluminiosDatos;
+using System.Transactions;
+
 namespace AluminiosNegocio
 {
     public static class ClienteNegocio
     {
         public static List<ClienteEntidad> DevolverListaClientes()
         {
+
             return ClienteDatos.DevolverListaClientes();
         }
 
         public static ClienteEntidad DevolverClientePorID(int idCliente)
         {
             return ClienteDatos.DevolverClientePorID(idCliente);
+        }
+
+        public static void ActualizarCliente(ClienteEntidad clienteNuevo)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                ClienteDatos.ActualizarCliente(clienteNuevo);
+                scope.Complete();
+            }
+            
+        }
+
+        public static int GuardarCliente(ClienteEntidad cliente)
+        {
+            int id = 0;
+            using (TransactionScope scope = new TransactionScope())
+            {
+                id = ClienteDatos.GuardarCliente(cliente);
+                scope.Complete();
+            }
+            return id;
+                
         }
     }
 }

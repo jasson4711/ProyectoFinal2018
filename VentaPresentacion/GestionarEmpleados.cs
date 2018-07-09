@@ -306,5 +306,20 @@ namespace VentaPresentacion
             {
             }
         }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            SoloNumeros(e, txtTelefono.Text);
+        }
+
+        private void SoloNumeros(KeyPressEventArgs e, string texto)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) || texto.Length >= 10)
+            {
+                //MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Handled = true;
+                return;
+            }
+        }
     }
 }

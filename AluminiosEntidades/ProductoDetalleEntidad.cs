@@ -11,7 +11,7 @@ namespace AluminiosEntidades
         public int Id_Producto { get; set; }
         public int Id_Material { get; set; }
         public int Cantidad { get; set; }
-        public decimal Precio { get; set; }
+        public double Precio { get; set; }
 
     }
 }

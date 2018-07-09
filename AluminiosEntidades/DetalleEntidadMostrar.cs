@@ -8,15 +8,15 @@ namespace AluminiosEntidades
 {
     public class DetalleEntidadMostrar
     {
-        public int IdVenta { get; set; }
-        public string NombreProducto { get; set; }
-        public decimal PrecioUnitario { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public double Precio { get; set; }
         public int Cantidad { get; set; }
-        public decimal TotalProducto
+        public double Precio_Total
         {
             get
             {
-                return this.PrecioUnitario * Cantidad;  
+                return this.Precio * Cantidad;  
             }
         }
     }

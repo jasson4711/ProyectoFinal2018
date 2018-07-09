@@ -11,6 +11,6 @@ namespace AluminiosEntidades
         public int Id_Ven_Per { get; set; }
         public int Id_Pro_Ven { get; set; }
         public int Cantidad { get; set; }
-        public int PrecioUnitario { get; set; }
+        public double PrecioUnitario { get; set; }
     }
 }

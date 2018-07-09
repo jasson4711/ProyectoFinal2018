@@ -68,7 +68,7 @@ namespace AluminiosDatos
             producto.Id = Convert.ToInt32(reader["Id_Pro"]);
             producto.Nombre = Convert.ToString(reader["Nom_Pro"]);
             producto.Descripcion = Convert.ToString(reader["Des_Pro"]);
-            producto.Precio = Convert.ToDecimal(reader["Pre_Pro"]);
+            producto.Precio = Convert.ToDouble(reader["Pre_Pro"]);
             producto.Cantidad = Convert.ToInt32(reader["Can_Pro"]);
             
             return producto;

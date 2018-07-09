@@ -12,6 +12,6 @@ namespace AluminiosEntidades
         public decimal Precio { get; set; }
         public string UM { get; set; }
         public int Cantidad { get; set; }
-        public decimal Precio_Total { get; set; }
+        public double Precio_Total { get; set; }
     }
 }

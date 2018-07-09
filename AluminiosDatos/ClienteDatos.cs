@@ -73,6 +73,22 @@ namespace AluminiosDatos
             }
         }
 
+        public static void EliminarCliente(ClienteEntidad clienteActual)
+        {
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"DELETE FROM [dbo].[Clientes]
+                                WHERE [Id_Cli]= @clienteId";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+
+                    cmd.Parameters.AddWithValue("@clienteId", clienteActual.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public static void ActualizarCliente(ClienteEntidad clienteNuevo)
         {
 
@@ -132,7 +148,7 @@ namespace AluminiosDatos
         }
 
 
-        public static ClienteEntidad DevolverClientePorCedula(int cedulaCliente)
+        public static ClienteEntidad DevolverClientePorCedula(string cedulaCliente)
         {
             ClienteEntidad cliente = new ClienteEntidad();
 
@@ -160,9 +176,9 @@ namespace AluminiosDatos
             return cliente;
         }
 
-        public static ClienteEntidad DevolverClientePorApellido(int apellidoCliente)
+        public static List<ClienteEntidad> DevolverClientePorApellido(string apellidoCliente)
         {
-            ClienteEntidad cliente = new ClienteEntidad();
+            List<ClienteEntidad> cliente = new List<ClienteEntidad>();
 
             using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
             {
@@ -175,14 +191,14 @@ namespace AluminiosDatos
                              ,[Tel_Cli]
                              ,[Email_Cli]
                                 FROM [dbo].[Clientes]
-                                WHERE [Ape_Cli]= @apellido";
+                                WHERE [Ape_Cli] LIKE  '%' + @apellido + '%'";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@apellido", apellidoCliente);
                 SqlDataReader reader = cmd.ExecuteReader();
                 //repita la ejecucion mientras tenga datos
                 while (reader.Read())
                 {
-                    cliente = CargarCliente(reader);
+                    cliente.Add(CargarCliente(reader));
                 }
             }
             return cliente;

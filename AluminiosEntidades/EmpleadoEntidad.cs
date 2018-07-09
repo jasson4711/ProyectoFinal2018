@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace AluminiosEntidades
 {
-    public class EmpleadoEntidad
+    public class EmpleadoEntidad : PersonaEntidad
     {
         public double Sueldo { get; set; }
-        public string Clave { get; set; }
+        public string Contraseña { get; set; }
+
     }
 }

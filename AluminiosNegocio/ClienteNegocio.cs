@@ -22,6 +22,16 @@ namespace AluminiosNegocio
             return ClienteDatos.DevolverClientePorID(idCliente);
         }
 
+        public static List<ClienteEntidad> DevolverClientePorApellido(string idCliente)
+        {
+            return ClienteDatos.DevolverClientePorApellido(idCliente);
+        }
+
+        public static ClienteEntidad DevolverClientePorCedula(string cedula)
+        {
+            return ClienteDatos.DevolverClientePorCedula(cedula);
+        }
+
         public static void ActualizarCliente(ClienteEntidad clienteNuevo)
         {
             using (TransactionScope scope = new TransactionScope())
@@ -42,6 +52,11 @@ namespace AluminiosNegocio
             }
             return id;
                 
+        }
+
+        public static void EliminarCliente(ClienteEntidad clienteActual)
+        {
+            ClienteDatos.EliminarCliente(clienteActual);
         }
     }
 }

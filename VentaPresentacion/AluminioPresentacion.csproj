@@ -44,11 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManejoClientes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ManejoClientes.Designer.cs">
       <DependentUpon>ManejoClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPresentacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPresentacion.Designer.cs">
+      <DependentUpon>MenuPresentacion.cs</DependentUpon>
     </Compile>
     <Compile Include="SeleccionarClientes.cs">
       <SubType>Form</SubType>
@@ -70,8 +82,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ManejoClientes.resx">
       <DependentUpon>ManejoClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPresentacion.resx">
+      <DependentUpon>MenuPresentacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

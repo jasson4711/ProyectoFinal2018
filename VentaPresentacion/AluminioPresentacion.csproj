@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManejoClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ManejoClientes.resx">
       <DependentUpon>ManejoClientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +131,10 @@
     <ProjectReference Include="..\AluminiosNegocio\AluminiosNegocio.csproj">
       <Project>{03db819a-e485-462d-ae77-c25c02036fa0}</Project>
       <Name>AluminiosNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetodosAyuda\MetodosAyuda.csproj">
+      <Project>{4ece95e8-a0db-4721-a462-8376894d9a9f}</Project>
+      <Name>MetodosAyuda</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

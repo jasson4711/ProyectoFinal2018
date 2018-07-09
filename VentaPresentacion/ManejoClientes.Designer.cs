@@ -42,6 +42,8 @@
             this.txtId = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCedula = new System.Windows.Forms.MaskedTextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDireccion = new System.Windows.Forms.TextBox();
@@ -51,8 +53,6 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.CEDULA = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -181,6 +181,7 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DATOS VENTA";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtId
             // 
@@ -208,6 +209,23 @@
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(100, 20);
             this.txtCedula.TabIndex = 1;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(116, 192);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(362, 20);
+            this.txtEmail.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 195);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "E-MAIL:";
             // 
             // txtTelefono
             // 
@@ -286,23 +304,6 @@
             this.CEDULA.Size = new System.Drawing.Size(92, 13);
             this.CEDULA.TabIndex = 0;
             this.CEDULA.Text = "CEDULA/RUC:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 195);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "E-MAIL:";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(116, 192);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(362, 20);
-            this.txtEmail.TabIndex = 9;
             // 
             // dataGridViewClientes
             // 

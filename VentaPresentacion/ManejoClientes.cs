@@ -46,5 +46,10 @@ namespace VentaPresentacion
         {
             dataGridViewClientes.DataSource = ClienteNegocio.DevolverListaClientes();
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

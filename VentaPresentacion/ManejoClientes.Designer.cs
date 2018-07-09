@@ -54,9 +54,18 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CEDULA = new System.Windows.Forms.Label();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pbBuscar = new System.Windows.Forms.PictureBox();
+            this.radioButtonApellido = new System.Windows.Forms.RadioButton();
+            this.radioButtonCedula = new System.Windows.Forms.RadioButton();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -76,6 +85,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(505, 39);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripEditar
             // 
@@ -100,6 +110,7 @@
             this.toolStripNuevo.Size = new System.Drawing.Size(36, 36);
             this.toolStripNuevo.Text = "toolStripButtonNuevo";
             this.toolStripNuevo.ToolTipText = " Añadir nuevo producto";
+            this.toolStripNuevo.Click += new System.EventHandler(this.toolStripNuevo_Click);
             // 
             // toolStripActualizar
             // 
@@ -112,6 +123,7 @@
             this.toolStripActualizar.Size = new System.Drawing.Size(28, 36);
             this.toolStripActualizar.Text = "toolStripButtonActualizar";
             this.toolStripActualizar.ToolTipText = "Actualizar un producto";
+            this.toolStripActualizar.Click += new System.EventHandler(this.toolStripActualizar_Click);
             // 
             // toolStripEliminar
             // 
@@ -124,6 +136,7 @@
             this.toolStripEliminar.Size = new System.Drawing.Size(28, 36);
             this.toolStripEliminar.Text = "toolStripButtonBorrar";
             this.toolStripEliminar.ToolTipText = "Borrar un producto";
+            this.toolStripEliminar.Click += new System.EventHandler(this.toolStripEliminar_Click);
             // 
             // toolStripGuardar
             // 
@@ -136,6 +149,7 @@
             this.toolStripGuardar.Size = new System.Drawing.Size(36, 36);
             this.toolStripGuardar.Text = "toolStripButtonGuardar";
             this.toolStripGuardar.ToolTipText = "Guardar Cambios";
+            this.toolStripGuardar.Click += new System.EventHandler(this.toolStripGuardar_Click);
             // 
             // toolStripSeparator1
             // 
@@ -158,6 +172,7 @@
             this.toolStripCancelar.Size = new System.Drawing.Size(36, 36);
             this.toolStripCancelar.Text = "toolStripButton1";
             this.toolStripCancelar.ToolTipText = "Cancelar cambios";
+            this.toolStripCancelar.Click += new System.EventHandler(this.toolStripCancelar_Click);
             // 
             // groupBox1
             // 
@@ -175,7 +190,7 @@
             this.groupBox1.Controls.Add(this.txtApellido);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.CEDULA);
-            this.groupBox1.Location = new System.Drawing.Point(1, 42);
+            this.groupBox1.Location = new System.Drawing.Point(3, 112);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(490, 221);
             this.groupBox1.TabIndex = 14;
@@ -204,6 +219,7 @@
             // 
             // txtCedula
             // 
+            this.txtCedula.Enabled = false;
             this.txtCedula.Location = new System.Drawing.Point(116, 61);
             this.txtCedula.Mask = "0000000000";
             this.txtCedula.Name = "txtCedula";
@@ -212,6 +228,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.Enabled = false;
             this.txtEmail.Location = new System.Drawing.Point(116, 192);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(362, 20);
@@ -229,6 +246,7 @@
             // 
             // txtTelefono
             // 
+            this.txtTelefono.Enabled = false;
             this.txtTelefono.Location = new System.Drawing.Point(116, 166);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(362, 20);
@@ -246,6 +264,7 @@
             // 
             // txtDireccion
             // 
+            this.txtDireccion.Enabled = false;
             this.txtDireccion.Location = new System.Drawing.Point(116, 140);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(362, 20);
@@ -263,6 +282,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.Enabled = false;
             this.txtNombre.Location = new System.Drawing.Point(116, 113);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(362, 20);
@@ -280,6 +300,7 @@
             // 
             // txtApellido
             // 
+            this.txtApellido.Enabled = false;
             this.txtApellido.Location = new System.Drawing.Point(116, 87);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(362, 20);
@@ -308,27 +329,105 @@
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClientes.Location = new System.Drawing.Point(16, 273);
+            this.dataGridViewClientes.Location = new System.Drawing.Point(16, 341);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
-            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 175);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 157);
             this.dataGridViewClientes.TabIndex = 15;
+            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.pbBuscar);
+            this.groupBox2.Controls.Add(this.radioButtonApellido);
+            this.groupBox2.Controls.Add(this.radioButtonCedula);
+            this.groupBox2.Controls.Add(this.txtBuscar);
+            this.groupBox2.Location = new System.Drawing.Point(3, 41);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(490, 65);
+            this.groupBox2.TabIndex = 16;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Busqueda";
+            // 
+            // pbBuscar
+            // 
+            this.pbBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pbBuscar.Image")));
+            this.pbBuscar.Location = new System.Drawing.Point(398, 25);
+            this.pbBuscar.Name = "pbBuscar";
+            this.pbBuscar.Size = new System.Drawing.Size(43, 34);
+            this.pbBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBuscar.TabIndex = 3;
+            this.pbBuscar.TabStop = false;
+            this.pbBuscar.Click += new System.EventHandler(this.pbBuscar_Click);
+            // 
+            // radioButtonApellido
+            // 
+            this.radioButtonApellido.AllowDrop = true;
+            this.radioButtonApellido.AutoSize = true;
+            this.radioButtonApellido.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.radioButtonApellido.Location = new System.Drawing.Point(9, 35);
+            this.radioButtonApellido.Name = "radioButtonApellido";
+            this.radioButtonApellido.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonApellido.TabIndex = 2;
+            this.radioButtonApellido.TabStop = true;
+            this.radioButtonApellido.Text = "Apellido";
+            this.radioButtonApellido.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCedula
+            // 
+            this.radioButtonCedula.AllowDrop = true;
+            this.radioButtonCedula.AutoSize = true;
+            this.radioButtonCedula.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.radioButtonCedula.Location = new System.Drawing.Point(13, 18);
+            this.radioButtonCedula.Name = "radioButtonCedula";
+            this.radioButtonCedula.Size = new System.Drawing.Size(58, 17);
+            this.radioButtonCedula.TabIndex = 1;
+            this.radioButtonCedula.TabStop = true;
+            this.radioButtonCedula.Text = "Cedula";
+            this.radioButtonCedula.UseVisualStyleBackColor = true;
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Location = new System.Drawing.Point(116, 32);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(269, 20);
+            this.txtBuscar.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(25, 343);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(21, 19);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // ManejoClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 457);
+            this.ClientSize = new System.Drawing.Size(505, 507);
+            this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dataGridViewClientes);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManejoClientes";
-            this.Text = "ManejoClientes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Clientes";
             this.Load += new System.EventHandler(this.ManejoClientes_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,5 +460,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label CEDULA;
         private System.Windows.Forms.DataGridView dataGridViewClientes;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.PictureBox pbBuscar;
+        private System.Windows.Forms.RadioButton radioButtonApellido;
+        private System.Windows.Forms.RadioButton radioButtonCedula;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

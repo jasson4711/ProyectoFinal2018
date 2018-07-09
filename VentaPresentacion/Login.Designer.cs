@@ -88,7 +88,7 @@
             this.textBoxUsuario.Location = new System.Drawing.Point(186, 134);
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(196, 20);
-            this.textBoxUsuario.TabIndex = 5;
+            this.textBoxUsuario.TabIndex = 0;
             // 
             // label2
             // 
@@ -106,8 +106,9 @@
             // 
             this.textBoxContraseña.Location = new System.Drawing.Point(186, 181);
             this.textBoxContraseña.Name = "textBoxContraseña";
+            this.textBoxContraseña.PasswordChar = '*';
             this.textBoxContraseña.Size = new System.Drawing.Size(196, 20);
-            this.textBoxContraseña.TabIndex = 5;
+            this.textBoxContraseña.TabIndex = 1;
             // 
             // label3
             // 

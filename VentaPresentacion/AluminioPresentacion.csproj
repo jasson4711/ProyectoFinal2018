@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracionApp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ConfiguracionApp.settings</DependentUpon>
+    </Compile>
     <Compile Include="GestionarEmpleados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +124,10 @@
     <EmbeddedResource Include="VentaPresentacion.resx">
       <DependentUpon>VentaPresentacion.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ConfiguracionApp.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ConfiguracionApp.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

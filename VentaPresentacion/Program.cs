@@ -16,7 +16,7 @@ namespace VentaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ManejoClientes());
+            Application.Run(new Login());
         }
     }
 }

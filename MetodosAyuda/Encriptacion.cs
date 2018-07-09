@@ -30,7 +30,7 @@ namespace MetodosAyuda
             return datosEncriptados;
         }
 
-        private static string DecriptarDatos(string dato)
+        public static string DecriptarDatos(string dato)
         {
             byte[] keyArray;
             byte[] decriptar = Convert.FromBase64String(dato);

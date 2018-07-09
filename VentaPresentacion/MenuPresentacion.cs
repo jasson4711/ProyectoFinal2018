@@ -33,5 +33,11 @@ namespace VentaPresentacion
             ManejoClientes clientes = new ManejoClientes();
             clientes.ShowDialog();
         }
+
+        private void buttonEmpleados_Click(object sender, EventArgs e)
+        {
+            GestionarEmpleados empleados = new GestionarEmpleados();
+            empleados.ShowDialog();
+        }
     }
 }

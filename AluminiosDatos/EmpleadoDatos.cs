@@ -40,6 +40,36 @@ namespace AluminiosDatos
             return lista;
         }
 
+        public static List<EmpleadoEntidad> DevolverEmpleadoPorApellido(string text)
+        {
+            List<EmpleadoEntidad> cliente = new List<EmpleadoEntidad>();
+
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"SELECT [Id_Emp]
+                             ,[Ape_Emp]
+                             ,[Nom_Emp]
+                             ,[Ced_Emp]
+                             ,[Dir_Emp]
+                             ,[Tel_Emp]
+                             ,[Email_Emp]
+                             ,[Sue_Emp]
+                             ,[Cla_Emp]
+                                FROM [dbo].[Empleados]
+                                WHERE [Ape_Emp]= '%' + @apellido + '%'";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@apellido", text);
+                SqlDataReader reader = cmd.ExecuteReader();
+                //repita la ejecucion mientras tenga datos
+                while (reader.Read())
+                {
+                    cliente.Add(CargarEmpleado(reader));
+                }
+            }
+            return cliente;
+        }
+
         public static EmpleadoEntidad DevolverEmpleadoPorID(int idEmpleado)
         {
             EmpleadoEntidad empleado = new EmpleadoEntidad();
@@ -98,6 +128,98 @@ namespace AluminiosDatos
                 }
             }
             return empleado;
+        }
+
+        public static int GuardarEmpleado(EmpleadoEntidad empleado)
+        {
+
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                //todo cambiar los campos a la base del proyecto
+                String sql = @"INSERT INTO [dbo].[Empleados]
+                               ([Ced_Emp]
+                               ,[Nom_Emp]
+                               ,[Ape_Emp]
+                               ,[Dir_Emp]
+                               ,[Tel_Emp]
+                               ,[Email_Emp]
+                               ,[Sue_Emp]
+                               ,[Cla_Emp])
+                                  VALUES(
+                               @ced
+                               ,@nom
+                               ,@ape
+                               ,@dir
+                               ,@tel
+                               ,@email
+                                ,@sue
+                               ,@clave);
+                            SELECT SCOPE_IDENTITY()";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ced", empleado.Cedula);
+                    cmd.Parameters.AddWithValue("@nom", empleado.Nombre);
+                    cmd.Parameters.AddWithValue("@ape", empleado.Apellido);
+                    cmd.Parameters.AddWithValue("@dir", empleado.Direccion);
+                    cmd.Parameters.AddWithValue("@tel", empleado.Telefono);
+                    cmd.Parameters.AddWithValue("@email", empleado.Email);
+                    cmd.Parameters.AddWithValue("@sue", empleado.Sueldo);
+                    cmd.Parameters.AddWithValue("@clave", empleado.Contraseña);
+                    empleado.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                return empleado.Id;
+            }
+        }
+
+        public static void EliminarEmpleado(EmpleadoEntidad empleadoActual)
+        {
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"DELETE FROM [dbo].[empleados]
+                                WHERE [Id_emp]= @empleadoId";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+
+                    cmd.Parameters.AddWithValue("@empleadoId", empleadoActual.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ActualizarEmpleado(EmpleadoEntidad empleado)
+        {
+
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"UPDATE [dbo].[empleados]
+                               SET [Ced_Emp] = @ced
+                                  ,[Nom_Emp] = @nom
+                                  ,[Ape_Emp] = @ape
+                                  ,[Dir_Emp] = @dir
+                                  ,[Tel_Emp] = @tel
+                                  ,[Email_Emp] = @email
+                                ,[Sue_Emp] = @sue
+                                  ,[Cla_Emp] = @clave
+                               WHERE [Id_Emp]= @empleadoId";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ced", empleado.Cedula);
+                    cmd.Parameters.AddWithValue("@nom", empleado.Nombre);
+                    cmd.Parameters.AddWithValue("@ape", empleado.Apellido);
+                    cmd.Parameters.AddWithValue("@dir", empleado.Direccion);
+                    cmd.Parameters.AddWithValue("@tel", empleado.Telefono);
+                    cmd.Parameters.AddWithValue("@email", empleado.Email);
+                    cmd.Parameters.AddWithValue("@sue", empleado.Sueldo);
+                    cmd.Parameters.AddWithValue("@clave", empleado.Contraseña);
+                    cmd.Parameters.AddWithValue("@empleadoId", empleado.Id);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+
         }
 
         public static EmpleadoEntidad CargarEmpleado(IDataReader reader)

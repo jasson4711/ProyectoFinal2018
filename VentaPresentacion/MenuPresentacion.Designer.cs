@@ -94,6 +94,7 @@
             this.buttonEmpleados.Text = "Empleados";
             this.buttonEmpleados.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.buttonEmpleados.UseVisualStyleBackColor = false;
+            this.buttonEmpleados.Click += new System.EventHandler(this.buttonEmpleados_Click);
             // 
             // buttonClientes
             // 

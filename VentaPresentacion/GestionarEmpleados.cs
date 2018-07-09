@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AluminiosNegocio;
 using AluminiosEntidades;
+using AluminiosNegocio;
+
 
 namespace VentaPresentacion
 {
-    public partial class ManejoClientes : Form
+    public partial class GestionarEmpleados : Form
     {
-        ClienteEntidad clienteActual = new ClienteEntidad();
-        List<ClienteEntidad> ListaClientes = new List<ClienteEntidad>();
+        EmpleadoEntidad empleadoActual = new EmpleadoEntidad();
+        List<EmpleadoEntidad> listaEmpleados = new List<EmpleadoEntidad>();
         string opcionToolStrip = "";
 
-        public ManejoClientes()
+        public GestionarEmpleados()
         {
             InitializeComponent();
         }
@@ -27,6 +28,7 @@ namespace VentaPresentacion
         {
             HabilitarControlesMenu(true);
         }
+
         private void HabilitarControlesMenu(bool v)
         {
             toolStripNuevo.Enabled = v;
@@ -46,47 +48,40 @@ namespace VentaPresentacion
             txtDireccion.Enabled = v;
             txtEmail.Enabled = v;
             txtTelefono.Enabled = v;
-        }
-
-        private void ManejoClientes_Load(object sender, EventArgs e)
-        {
-            CargarDataGridClientes();
-
+            txtSueldo.Enabled = v;
+            txtContraseña.Enabled = v;
         }
 
         private void CargarDataGridClientes()
         {
-            dataGridViewClientes.DataSource = ClienteNegocio.DevolverListaClientes();
+            dataGridViewClientes.DataSource = EmpleadoNegocio.DevolverListaEmpleados();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GestionarEmpleados_Load(object sender, EventArgs e)
         {
-
+            CargarDataGridClientes();
         }
 
-        private void pbBuscar_Click(object sender, EventArgs e)
-        {
-            BuscarCliente();
-        }
-
-
-        private void BuscarCliente()
+        private void BuscarEmpleado()
         {
             if (!txtBuscar.Text.Equals(""))
             {
                 if (radioButtonCedula.Checked)
                 {
-                    clienteActual = ClienteNegocio.DevolverClientePorCedula(txtBuscar.Text);
-                    if (clienteActual.Id!=0)
-                        cargarClientePorCedula();
-                    else
+                    empleadoActual = EmpleadoNegocio.DevolverEmpleadoPorCedula(txtBuscar.Text);
+                    if (empleadoActual.Id!=0)
+                    {
+                        cargarEmpleadoPorCedula();
+                    }else
                         MessageBox.Show("Sin resultados. Verifique si la cedula es correcta");
+
                 }
                 else if (radioButtonApellido.Checked)
                 {
-                    ListaClientes = ClienteNegocio.DevolverClientePorApellido(txtBuscar.Text);
-                    dataGridViewClientes.DataSource = ListaClientes;
-                }else
+                    listaEmpleados = EmpleadoNegocio.DevolverEmpleadoPorApellido(txtBuscar.Text);
+                    dataGridViewClientes.DataSource = listaEmpleados;
+                }
+                else
                     MessageBox.Show("Seleccione un metodo de busqueda");
 
             }
@@ -96,15 +91,17 @@ namespace VentaPresentacion
             }
         }
 
-        private void cargarClientePorCedula()
+        private void cargarEmpleadoPorCedula()
         {
-            txtId.Text = clienteActual.Id.ToString();
-            txtNombre.Text = clienteActual.Nombre;
-            txtApellido.Text = clienteActual.Apellido;
-            txtCedula.Text = clienteActual.Cedula;
-            txtDireccion.Text = clienteActual.Direccion;
-            txtEmail.Text = clienteActual.Email ;
-            txtTelefono.Text = clienteActual.Telefono;
+            txtId.Text = empleadoActual.Id.ToString();
+            txtNombre.Text = empleadoActual.Nombre;
+            txtApellido.Text = empleadoActual.Apellido;
+            txtCedula.Text = empleadoActual.Cedula;
+            txtDireccion.Text = empleadoActual.Direccion;
+            txtEmail.Text = empleadoActual.Email;
+            txtTelefono.Text = empleadoActual.Telefono;
+            txtSueldo.Text = empleadoActual.Sueldo.ToString();
+            txtContraseña.Text = MetodosAyuda.Encriptacion.DecriptarDatos(empleadoActual.Contraseña);
         }
 
         private void dataGridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -122,31 +119,29 @@ namespace VentaPresentacion
                 txtDireccion.Text = row.Cells["direccion"].Value.ToString();
                 txtEmail.Text = row.Cells["email"].Value.ToString();
                 txtTelefono.Text = row.Cells["telefono"].Value.ToString();
-                EstablecerClienteActual();
+                EstablecerEmpleadoActual();
             }
             catch (Exception)
             {
             }
         }
 
-        private void EstablecerClienteActual()
+        private void EstablecerEmpleadoActual()
         {
-            if (txtId.Text=="")
+            if (txtId.Text == "")
             {
-                clienteActual.Id = 0;
-            }else
-                clienteActual.Id = Convert.ToInt32(txtId.Text);
-            clienteActual.Nombre = txtNombre.Text;
-            clienteActual.Apellido = txtApellido.Text;
-            clienteActual.Cedula = txtCedula.Text;
-            clienteActual.Direccion = txtDireccion.Text;
-            clienteActual.Email = txtEmail.Text;
-            clienteActual.Telefono = txtTelefono.Text;
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
+                empleadoActual.Id = 0;
+            }
+            else
+                empleadoActual.Id = Convert.ToInt32(txtId.Text);
+            empleadoActual.Nombre = txtNombre.Text;
+            empleadoActual.Apellido = txtApellido.Text;
+            empleadoActual.Cedula = txtCedula.Text;
+            empleadoActual.Direccion = txtDireccion.Text;
+            empleadoActual.Email = txtEmail.Text;
+            empleadoActual.Telefono = txtTelefono.Text;
+            empleadoActual.Sueldo = Convert.ToDouble( txtSueldo.Text);
+            empleadoActual.Contraseña = txtContraseña.Text;
         }
 
         private void toolStripNuevo_Click(object sender, EventArgs e)
@@ -170,7 +165,7 @@ namespace VentaPresentacion
 
         private void toolStripActualizar_Click(object sender, EventArgs e)
         {
-            if (txtId.Text=="")
+            if (txtId.Text == "")
             {
                 MessageBox.Show("Busque o seleccione un cliente para modificarlo");
             }
@@ -181,7 +176,6 @@ namespace VentaPresentacion
                 txtCedula.Focus();
                 opcionToolStrip = "modificar";
             }
-            
         }
 
         private void HabilitarControlesMenuActualizar(Boolean v)
@@ -205,8 +199,8 @@ namespace VentaPresentacion
             {
                 if (MessageBox.Show("Desea realmente elminar la informacion de la base de datos?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    EstablecerClienteActual();
-                    ClienteNegocio.EliminarCliente(clienteActual);
+                    EstablecerEmpleadoActual();
+                    EmpleadoNegocio.EliminarEmpleado(empleadoActual);
                     HabilitarControlesMenu(false);
                     HabilitarControlesIngreso(false);
                     CargarDataGridClientes();
@@ -215,31 +209,11 @@ namespace VentaPresentacion
             }
         }
 
-        private void toolStripGuardar_Click(object sender, EventArgs e)
-        {
-            if (validarDatosEntrada())
-            {
-                if (opcionToolStrip == "nuevo")
-                {
-                    EstablecerClienteActual();
-                    ClienteNegocio.GuardarCliente(clienteActual);
-                    MessageBox.Show("Nuevo cliente guardado con exito");
-                }
-                else if (opcionToolStrip == "modificar")
-                {
-                    EstablecerClienteActual();
-                    ClienteNegocio.ActualizarCliente(clienteActual);
-                    MessageBox.Show("Cliente actualizado con exito");
-                }
-                dataGridViewClientes.DataSource = null;
-                CargarDataGridClientes();
-            }
-        }
-
         private bool validarDatosEntrada()
         {
             if (txtCedula.Text == "" || txtNombre.Text == "" || txtApellido.Text == ""
-                || txtDireccion.Text == "" || txtTelefono.Text == "" || txtEmail.Text == "")
+                || txtDireccion.Text == "" || txtTelefono.Text == "" || txtEmail.Text == ""
+                || txtSueldo.Text == "" || txtContraseña.Text == "")
             {
                 MessageBox.Show("Ingrese correctamente todos los campos");
                 txtCedula.Focus();
@@ -254,6 +228,30 @@ namespace VentaPresentacion
             else
                 return true;
         }
+        private void toolStripGuardar_Click(object sender, EventArgs e)
+        {
+            if (validarDatosEntrada())
+            {
+                if (opcionToolStrip == "nuevo")
+                {
+                    EstablecerEmpleadoActual();
+                    empleadoActual.Contraseña = MetodosAyuda.Encriptacion.encriptarDatos(txtContraseña.Text);
+                    EmpleadoNegocio.GuardarEmpleado(empleadoActual);
+                    MessageBox.Show("Nuevo empleado guardado con exito");
+                }
+                else if (opcionToolStrip == "modificar")
+                {
+                    EstablecerEmpleadoActual();
+                    empleadoActual.Contraseña = MetodosAyuda.Encriptacion.encriptarDatos(txtContraseña.Text);
+                    EmpleadoNegocio.ActualizarEmpleado(empleadoActual);
+                    MessageBox.Show("Empleado actualizado con exito");
+                }
+                dataGridViewClientes.DataSource = null;
+                CargarDataGridClientes();
+                HabilitarControlesMenu(false);
+                limpiarIngreso();
+            }
+        }
 
         private void toolStripCancelar_Click(object sender, EventArgs e)
         {
@@ -266,16 +264,47 @@ namespace VentaPresentacion
         {
             txtId.Text = "";
             txtNombre.Text = "";
-            txtApellido.Text= "";
+            txtApellido.Text = "";
             txtCedula.Text = "";
-            txtDireccion.Text= "";
+            txtDireccion.Text = "";
             txtEmail.Text = "";
-            txtTelefono.Text= "";
+            txtTelefono.Text = "";
+            txtSueldo.Text = "";
+            txtContraseña.Text = "";
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             CargarDataGridClientes();
+        }
+
+        private void pbBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarEmpleado();
+        }
+
+        private void dataGridViewClientes_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int index = e.RowIndex;
+
+                DataGridViewRow row = this.dataGridViewClientes.Rows[index];
+
+                txtId.Text = row.Cells["Id"].Value.ToString();
+                txtNombre.Text = row.Cells["nombre"].Value.ToString();
+                txtApellido.Text = row.Cells["apellido"].Value.ToString();
+                txtCedula.Text = row.Cells["cedula"].Value.ToString();
+                txtDireccion.Text = row.Cells["direccion"].Value.ToString();
+                txtEmail.Text = row.Cells["email"].Value.ToString();
+                txtTelefono.Text = row.Cells["telefono"].Value.ToString();
+                txtSueldo.Text = row.Cells["sueldo"].Value.ToString();
+                txtContraseña.Text =MetodosAyuda.Encriptacion.DecriptarDatos( row.Cells["contraseña"].Value.ToString());
+                EstablecerEmpleadoActual();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

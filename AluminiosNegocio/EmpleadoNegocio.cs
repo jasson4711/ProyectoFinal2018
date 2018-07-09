@@ -28,5 +28,37 @@ namespace AluminiosNegocio
         {
             return EmpleadoDatos.DevolverEmpleadoPorCedula(text);
         }
+
+        public static List<EmpleadoEntidad> DevolverEmpleadoPorApellido(string text)
+        {
+            return EmpleadoDatos.DevolverEmpleadoPorApellido(text);
+        }
+
+        public static void ActualizarEmpleado(EmpleadoEntidad empleado)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                EmpleadoDatos.ActualizarEmpleado(empleado);
+                scope.Complete();
+            }
+
+        }
+
+        public static int GuardarEmpleado(EmpleadoEntidad empleado)
+        {
+            int id = 0;
+            using (TransactionScope scope = new TransactionScope())
+            {
+                id = EmpleadoDatos.GuardarEmpleado(empleado);
+                scope.Complete();
+            }
+            return id;
+
+        }
+
+        public static void EliminarEmpleado(EmpleadoEntidad empleado)
+        {
+            EmpleadoDatos.EliminarEmpleado(empleado);
+        }
     }
 }

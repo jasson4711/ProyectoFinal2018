@@ -44,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfiguracionApp.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>ConfiguracionApp.settings</DependentUpon>
+    <Compile Include="GestionarEmpleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionarEmpleados.Designer.cs">
+      <DependentUpon>GestionarEmpleados.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GestionarEmpleados.resx">
+      <DependentUpon>GestionarEmpleados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,10 +119,6 @@
     <EmbeddedResource Include="VentaPresentacion.resx">
       <DependentUpon>VentaPresentacion.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ConfiguracionApp.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>ConfiguracionApp.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

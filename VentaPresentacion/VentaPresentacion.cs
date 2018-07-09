@@ -13,8 +13,11 @@ namespace VentaPresentacion
 {
     public partial class VentaPresentacion : Form
     {
+        int id_venta = 0;
         ClienteEntidad clienteActual = new ClienteEntidad();
         ProductoEntidadMostrar productoActual = new ProductoEntidadMostrar();
+        VentaEntidadMostrar currentVentaCabecera = new VentaEntidadMostrar();
+        DetalleEntidadMostrar currentVentaDetalle = new DetalleEntidadMostrar();
         List<DetalleEntidadMostrar> listaProductos = new List<DetalleEntidadMostrar>();
         public VentaPresentacion()
         {
@@ -111,6 +114,7 @@ namespace VentaPresentacion
                     ClienteNegocio.ActualizarCliente(clienteModificado);
                     clienteActual = clienteModificado;
                     LlenarCamposTextoCliente();
+                    MessageBox.Show("Actualización correcta");
                 }
             }
             catch
@@ -188,6 +192,7 @@ namespace VentaPresentacion
                     clienteActual = EstablecerCliente();
                     ClienteNegocio.GuardarCliente(clienteActual);
                     LlenarCamposTextoCliente();
+                    MessageBox.Show("Cliente guardado correctamente");
                 }
             }
             catch
@@ -478,8 +483,24 @@ namespace VentaPresentacion
                     limpiarCamposFactura();
                     dgvDetallesCompra.DataSource = null;
                     listaProductos = new List<DetalleEntidadMostrar>();
+                    if (MessageBox.Show("Desea imprimir?", "FACTURA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        ImprimirFactura();
+                    }
                 }
 
+            }
+        }
+
+        private void ImprimirFactura()
+        {
+            printDocumentVenta.DocumentName = "Detalle de venta";
+            printDialogVenta.Document = printDocumentVenta;
+            printDialogVenta.AllowSelection = true;
+            printDialogVenta.AllowSomePages = true;
+            if (printDialogVenta.ShowDialog() == DialogResult.OK)
+            {
+                printDocumentVenta.Print();
             }
         }
 
@@ -488,7 +509,7 @@ namespace VentaPresentacion
             try
             {
                 VentaEntidad venta = FabricarCabecera();
-                VentaNegocio.GenerarVenta(venta);
+                id_venta = VentaNegocio.GenerarVenta(venta);
             }
             catch
             {
@@ -534,6 +555,71 @@ namespace VentaPresentacion
             txtIva.Text = "";
             txtManoObra.Text = "";
             txtTotalPagar.Text = "";
+        }
+
+        private void printDocumentVenta_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            //    int x = 5, y = 5;
+
+            //    currentVentaCabecera = VentaNegocio.DevolverVentaCabecera(id_venta);
+            //    currentVentaDetalle = VentaNegocio.DevolverVentaDetalle(id_venta);
+
+
+            //    Pen blackPen = new Pen(Color.Black, 3);
+
+
+            //    Font fuenteCabecera = new Font("Arial", 14, FontStyle.Bold);
+            //    Font fuenteCabecera2 = new Font("Arial", 10, FontStyle.Bold);
+            //    Font fuenteCabecera3 = new Font("Times New Roman", 8, FontStyle.Bold);
+            //    Font fuenteDetalle = new Font("Times New Roman", 8, FontStyle.Regular);
+
+            //    //MessageBox.Show(e.PageSettings.PaperSize.ToString()); //1100 875
+            //    e.Graphics.DrawString("COMPROBANTE DE VENTA", fuenteCabecera, Brushes.DarkBlue, x + 50, y += 10);
+            //    Image imagen = Image.FromFile("alCosto.png");
+            //    e.Graphics.DrawImage(imagen, x + 325, y, 50, 30);
+            //    e.Graphics.DrawString("ACRIVIDRIO'S", fuenteCabecera2, Brushes.Black, x + 103, y += 20);
+            //    e.Graphics.DrawString("Ruc: 001 340 230 1001", fuenteCabecera2, Brushes.Black, x + 95, y += 20);
+
+            //    Barcode codigo = new Barcode();
+            //    codigo.IncludeLabel = true;
+            //    Image miCodigo = codigo.Encode(BarcodeLib.TYPE.CODE128, currentVentaCabecera.Cedula + "-" + currentVentaCabecera.Id, Color.Black, Color.White, 400, 100);
+            //    e.Graphics.DrawImage(miCodigo, x, y += 30, miCodigo.Width, miCodigo.Height);
+            //    //Datos cabecera
+            //    e.Graphics.DrawString("Cedula: " + currentVentaCabecera.Cedula, fuenteDetalle, Brushes.Black, x, y += 100);
+            //    e.Graphics.DrawString("Cliente: " + currentVentaCabecera.Apellido + " " + currentVentaCabecera.Nombre, fuenteDetalle, Brushes.Black, x, y += 20);
+            //    e.Graphics.DrawString("Dirección: " + currentVentaCabecera.Direccion, fuenteDetalle, Brushes.Black, x, y += 20);
+            //    e.Graphics.DrawString("Teléfono: " + currentVentaCabecera.Telefono, fuenteDetalle, Brushes.Black, x, y += 20);
+            //    e.Graphics.DrawString("Fecha Vemta: " + currentVentaCabecera.FechaVenta, fuenteDetalle, Brushes.Black, x, y += 20);
+            //    //Datos detalle
+            //    e.Graphics.DrawString("Producto", fuenteCabecera3, Brushes.Black, x, y += 40);
+            //    e.Graphics.DrawString("Precio Unitario", fuenteCabecera3, Brushes.Black, x + 100, y);
+            //    e.Graphics.DrawString("Cantidad", fuenteCabecera3, Brushes.Black, x + 200, y);
+            //    e.Graphics.DrawString("Subtotal", fuenteCabecera3, Brushes.Black, x + 300, y);
+
+
+            //    foreach (var item in currentVentaDetalle)
+            //    {
+
+            //        if (y >= 1100)
+            //        {
+            //            e.HasMorePages = true;
+            //            y = y - 1100;
+            //        }
+            //        else
+            //        {
+            //            e.HasMorePages = false;
+            //        }
+            //        e.Graphics.DrawString(item.NombreProducto, fuenteDetalle, Brushes.Black, x, y += 20);
+            //        e.Graphics.DrawString(item.PrecioUnitario.ToString(), fuenteDetalle, Brushes.Black, x + 100, y);
+            //        e.Graphics.DrawString(item.Cantidad.ToString(), fuenteDetalle, Brushes.Black, x + 200, y);
+            //        e.Graphics.DrawString((item.PrecioUnitario * item.Cantidad).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+
+
+            //    }
+            //    e.Graphics.DrawString("Total".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
+            //    e.Graphics.DrawString(currentVentaCabecera.Total.ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            //    Rectangle rectangle = new Rectangle(0, 0, 400, y + 40);
+            //    e.Graphics.DrawRectangle(blackPen, rectangle);
         }
     }
 }

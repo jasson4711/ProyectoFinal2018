@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarcodeLib, Version=1.3.0.0, Culture=neutral, PublicKeyToken=5f09bda868cc39e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\BarcodeLib.1.3.0.0\lib\net20\BarcodeLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -74,12 +77,6 @@
     <Compile Include="GestionarEmpleados.Designer.cs">
       <DependentUpon>GestionarEmpleados.cs</DependentUpon>
     </Compile>
-    <Compile Include="InventarioProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventarioProductos.Designer.cs">
-      <DependentUpon>InventarioProductos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,9 +118,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GestionarEmpleados.resx">
       <DependentUpon>GestionarEmpleados.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InventarioProductos.resx">
-      <DependentUpon>InventarioProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -64,6 +64,85 @@ namespace AluminiosDatos
 
         }
 
+        public static List<DetalleEntidadMostrar> DevolverVentaDetalle(int id_venta)
+        {
+            List<DetalleEntidadMostrar> listaVentaDetalle = new List<DetalleEntidadMostrar>();
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                string sql = @"SELECT [Nom_Pro]
+                                  ,[Pre_Pro]
+                                  ,[Des_Pro]
+                                  ,[Id_Pro_Ven]
+                                  ,[Can_Pro_Ven]
+                                  ,[Id_Ven_Per]
+                              FROM [dbo].[View_Detalle]
+                            WHERE [Id_Ven_Per] = @id_Venta
+                            ";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id_Venta", id_venta);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    listaVentaDetalle.Add(TraducirDetalleEntidad(reader));
+                }
+            }
+            return listaVentaDetalle;
+        }
+
+        private static DetalleEntidadMostrar TraducirDetalleEntidad(SqlDataReader reader)
+        {
+            DetalleEntidadMostrar ms = new DetalleEntidadMostrar();
+            ms.Id = Convert.ToInt32(reader["Id_Ven_Per"]);
+            ms.Nombre= Convert.ToString(reader["Nom_Pro"] + " "+reader["Des_Pro"]);
+            ms.Precio = Convert.ToDouble(reader["Pre_Pro"]);
+            ms.Cantidad = Convert.ToInt32(reader["Can_Pro_Ven"]);
+            return ms;
+        }
+
+        public static VentaEntidadMostrar DevolverVentaCabecera(int id_venta)
+        {
+            VentaEntidadMostrar ventaCabeceraEntidad = new VentaEntidadMostrar();
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                string sql = @"SELECT [Ced_Cli]
+                                  ,[Nom_Cli]
+                                  ,[Ape_Cli]
+                                  ,[Dir_Cli]
+                                  ,[Tel_Cli]
+                                  ,[Ced_Emp]
+                                  ,[Nom_Emp]
+                                  ,[Ape_Emp]
+                                  ,[Fec_Ven]
+                                  ,[Total]
+                                  ,[Id_Ven]
+                              FROM [dbo].[View_Cabecera]
+                              WHERE [Id_Ven] = @id_Venta";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id_Venta", id_venta);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ventaCabeceraEntidad = TraducirCabeceraEntidad(reader);
+                }
+            }
+            return ventaCabeceraEntidad;
+        }
+
+        private static VentaEntidadMostrar TraducirCabeceraEntidad(IDataReader reader)
+        {
+            VentaEntidadMostrar ms = new VentaEntidadMostrar();
+            ms.Id = Convert.ToInt32(reader["Id_Ven"]);
+            ms.FechaVenta = Convert.ToDateTime(reader["Fec_Ven"]);
+            ms.Nombre = Convert.ToString(reader["Nom_Cli"]);
+            ms.Apellido = Convert.ToString(reader["Ape_Cli"]);
+            ms.Cedula = Convert.ToString(reader["Ced_Cli"]);
+            ms.Direccion = Convert.ToString(reader["Dir_Cli"]);
+            ms.Telefono = Convert.ToString(reader["Tel_Cli"]);
+            ms.Total = Convert.ToDouble(reader["Total"]);
+            return ms;
+        }
 
         public static void UpdateTotal(int id, double total)
         {

@@ -47,7 +47,7 @@ namespace VentaPresentacion
 
             if (contraseña.Equals(empleadoActual.Contraseña))
             {
-                MenuPresentacion menu = new MenuPresentacion();
+                MenuPresentacion menu = new MenuPresentacion(empleadoActual);
                 //this.Close();
                 menu.Show();
                 Visible = false;

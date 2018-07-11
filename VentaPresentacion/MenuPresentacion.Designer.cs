@@ -39,6 +39,7 @@
             this.buttonPedidos = new System.Windows.Forms.Button();
             this.buttonProveedores = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblEmpleado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -188,6 +189,16 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // lblEmpleado
+            // 
+            this.lblEmpleado.AutoSize = true;
+            this.lblEmpleado.BackColor = System.Drawing.Color.Transparent;
+            this.lblEmpleado.Location = new System.Drawing.Point(375, 9);
+            this.lblEmpleado.Name = "lblEmpleado";
+            this.lblEmpleado.Size = new System.Drawing.Size(142, 13);
+            this.lblEmpleado.TabIndex = 10;
+            this.lblEmpleado.Text = "EMPLEADO CONECTADO: ";
+            // 
             // MenuPresentacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +206,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(936, 695);
             this.ControlBox = false;
+            this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonProveedores);
             this.Controls.Add(this.buttonPedidos);
@@ -229,5 +241,6 @@
         private System.Windows.Forms.Button buttonPedidos;
         private System.Windows.Forms.Button buttonProveedores;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblEmpleado;
     }
 }

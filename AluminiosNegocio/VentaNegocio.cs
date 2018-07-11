@@ -21,5 +21,15 @@ namespace AluminiosNegocio
             }
             return id;
         }
+
+        public static VentaEntidadMostrar DevolverVentaCabecera(int id_venta)
+        {
+            return VentaDatos.DevolverVentaCabecera(id_venta);
+        }
+
+        public static List<DetalleEntidadMostrar> DevolverVentaDetalle(int id_venta)
+        {
+            return VentaDatos.DevolverVentaDetalle(id_venta);
+        }
     }
 }

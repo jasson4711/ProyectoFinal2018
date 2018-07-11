@@ -7,24 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using AluminiosEntidades;
 namespace VentaPresentacion
 {
     public partial class MenuPresentacion : Form
     {
-        public MenuPresentacion()
+        public EmpleadoEntidad empleadoActual = new EmpleadoEntidad();
+        public MenuPresentacion(EmpleadoEntidad empleado)
         {
             InitializeComponent();
+            empleadoActual = empleado;
+            lblEmpleado.Text += empleadoActual.Nombre + " " + empleadoActual.Apellido;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
         private void buttonVentas_Click(object sender, EventArgs e)
         {
-            VentaPresentacion venta = new VentaPresentacion();
+            VentaPresentacion venta = new VentaPresentacion(empleadoActual.Id);
             venta.ShowDialog();
         }
 

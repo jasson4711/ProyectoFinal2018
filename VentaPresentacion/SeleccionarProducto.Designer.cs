@@ -39,7 +39,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.dgvProductos);
-            this.panel1.Location = new System.Drawing.Point(15, 25);
+            this.panel1.Location = new System.Drawing.Point(14, 133);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(549, 252);
             this.panel1.TabIndex = 0;
@@ -58,13 +58,13 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 13);
+            this.label1.Size = new System.Drawing.Size(201, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Seleccione un producto dando un clic";
+            this.label1.Text = "Seleccione un producto dando doble clic";
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(257, 292);
+            this.btnCancelar.Location = new System.Drawing.Point(256, 391);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
@@ -76,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 327);
+            this.ClientSize = new System.Drawing.Size(576, 426);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label1);

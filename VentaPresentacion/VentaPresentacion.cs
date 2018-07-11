@@ -367,7 +367,7 @@ namespace VentaPresentacion
 
         private void CalcularManoObra()
         {
-            var manoObra = (Convert.ToDouble(txtSubtotal.Text) + Convert.ToDouble(txtIva.Text))* ConfiguracionApp.Default.PorcentajeGanancia;
+            var manoObra = (Convert.ToDouble(txtSubtotal.Text)) * ConfiguracionApp.Default.PorcentajeGanancia;
             txtManoObra.Text = manoObra.ToString();
         }
 
@@ -580,7 +580,7 @@ namespace VentaPresentacion
 
             //MessageBox.Show(e.PageSettings.PaperSize.ToString()); //1100 875
             e.Graphics.DrawString("COMPROBANTE DE VENTA", fuenteCabecera, Brushes.DarkBlue, x + 50, y += 10);
-            Image imagen = Image.FromFile("C:\\Users\\user\\Desktop\\ProyectoFinal2018\\Imagenes\\logo1.png");
+            Image imagen = Properties.Resources.logo1;
             e.Graphics.DrawImage(imagen, x + 325, y, 50, 30);
             e.Graphics.DrawString("ACRIVIDRIO'S", fuenteCabecera2, Brushes.Black, x + 103, y += 20);
             e.Graphics.DrawString("Ruc: 001 340 230 1001", fuenteCabecera2, Brushes.Black, x + 95, y += 20);
@@ -613,7 +613,12 @@ namespace VentaPresentacion
 
             }
             e.Graphics.DrawString("Subtotal".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
-            e.Graphics.DrawString((currentVentaCabecera.Total/1.12).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            e.Graphics.DrawString(((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            e.Graphics.DrawString("Iva".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
+            e.Graphics.DrawString((currentVentaCabecera.Total - ((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12)).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            e.Graphics.DrawString("Mano de obra".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
+            e.Graphics.DrawString((((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12)/1.10).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+
             e.Graphics.DrawString("Total".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
             e.Graphics.DrawString(currentVentaCabecera.Total.ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
             Rectangle rectangle = new Rectangle(0, 0, 400, y + 40);

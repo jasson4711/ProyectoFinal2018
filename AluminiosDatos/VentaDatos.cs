@@ -30,7 +30,7 @@ namespace AluminiosDatos
                     cmd.Parameters.AddWithValue("@idCliente", ventas.Id_Cliente);
                     cmd.Parameters.AddWithValue("@idEmpleado", ventas.Id_Empleado);
                     cmd.Parameters.AddWithValue("@fechaVenta", ventas.Fecha);
-                    cmd.Parameters.AddWithValue("@porGan", ventas.Porcentaje_Ganancia);
+                    cmd.Parameters.AddWithValue("@porGan", ventas.Ganancia);
                     cmd.Parameters.AddWithValue("@total", 0);
                     ventas.Id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -71,11 +71,11 @@ namespace AluminiosDatos
             {
                 cn.Open();
                 string sql = @"SELECT [Nom_Pro]
-                                  ,[Pre_Pro]
                                   ,[Des_Pro]
+                                  ,[Pre_Pro]
+                                  ,[Id_Ven_Per]
                                   ,[Id_Pro_Ven]
                                   ,[Can_Pro_Ven]
-                                  ,[Id_Ven_Per]
                               FROM [dbo].[View_Detalle]
                             WHERE [Id_Ven_Per] = @id_Venta
                             ";
@@ -114,9 +114,10 @@ namespace AluminiosDatos
                                   ,[Ced_Emp]
                                   ,[Nom_Emp]
                                   ,[Ape_Emp]
-                                  ,[Fec_Ven]
-                                  ,[Total]
                                   ,[Id_Ven]
+                                  ,[Fec_Ven]
+                                  ,[Por_Gan_Ven]
+                                  ,[Total]
                               FROM [dbo].[View_Cabecera]
                               WHERE [Id_Ven] = @id_Venta";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -141,6 +142,7 @@ namespace AluminiosDatos
             ms.Direccion = Convert.ToString(reader["Dir_Cli"]);
             ms.Telefono = Convert.ToString(reader["Tel_Cli"]);
             ms.Total = Convert.ToDouble(reader["Total"]);
+            ms.Ganancia = Convert.ToDouble(reader["Por_Gan_Ven"]);
             return ms;
         }
 

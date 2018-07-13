@@ -211,6 +211,7 @@ namespace VentaPresentacion
             detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
             detalle.Precio = Convert.ToDouble(dgvMateriales.CurrentRow.Cells["Precio_Unitario"].Value.ToString());
             listaDetallesBase.Add(detalle);
+
         }
 
         public ProductoDetalleEntidadMostrar ConvertirProductoDetalleEntidadMostrar()

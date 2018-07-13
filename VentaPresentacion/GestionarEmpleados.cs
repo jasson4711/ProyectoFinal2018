@@ -50,6 +50,7 @@ namespace VentaPresentacion
             txtTelefono.Enabled = v;
             txtSueldo.Enabled = v;
             txtContraseña.Enabled = v;
+            txtCargo.Enabled = v;
         }
 
         private void CargarDataGridClientes()
@@ -102,6 +103,7 @@ namespace VentaPresentacion
             txtTelefono.Text = empleadoActual.Telefono;
             txtSueldo.Text = empleadoActual.Sueldo.ToString();
             txtContraseña.Text = MetodosAyuda.Encriptacion.DecriptarDatos(empleadoActual.Contraseña);
+            txtCargo.Text = empleadoActual.Cargo;
         }
 
         private void dataGridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -119,6 +121,7 @@ namespace VentaPresentacion
                 txtDireccion.Text = row.Cells["direccion"].Value.ToString();
                 txtEmail.Text = row.Cells["email"].Value.ToString();
                 txtTelefono.Text = row.Cells["telefono"].Value.ToString();
+                txtCargo.Text= row.Cells["cargo"].Value.ToString();
                 EstablecerEmpleadoActual();
             }
             catch (Exception)
@@ -141,6 +144,7 @@ namespace VentaPresentacion
             empleadoActual.Email = txtEmail.Text;
             empleadoActual.Telefono = txtTelefono.Text;
             empleadoActual.Sueldo = Convert.ToDouble( txtSueldo.Text);
+            empleadoActual.Cargo = txtCargo.Text;
             empleadoActual.Contraseña = txtContraseña.Text;
         }
 
@@ -213,7 +217,7 @@ namespace VentaPresentacion
         {
             if (txtCedula.Text == "" || txtNombre.Text == "" || txtApellido.Text == ""
                 || txtDireccion.Text == "" || txtTelefono.Text == "" || txtEmail.Text == ""
-                || txtSueldo.Text == "" || txtContraseña.Text == "")
+                || txtSueldo.Text == "" || txtContraseña.Text == "" || txtCargo.Text == "")
             {
                 MessageBox.Show("Ingrese correctamente todos los campos");
                 txtCedula.Focus();
@@ -271,6 +275,7 @@ namespace VentaPresentacion
             txtTelefono.Text = "";
             txtSueldo.Text = "";
             txtContraseña.Text = "";
+            txtCargo.Text = "";
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -300,6 +305,7 @@ namespace VentaPresentacion
                 txtTelefono.Text = row.Cells["telefono"].Value.ToString();
                 txtSueldo.Text = row.Cells["sueldo"].Value.ToString();
                 txtContraseña.Text =MetodosAyuda.Encriptacion.DecriptarDatos( row.Cells["contraseña"].Value.ToString());
+                txtCargo.Text= row.Cells["cargo"].Value.ToString();
                 EstablecerEmpleadoActual();
             }
             catch (Exception)

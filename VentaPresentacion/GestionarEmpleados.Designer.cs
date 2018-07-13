@@ -64,6 +64,8 @@
             this.toolStripCancelar = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtCargo = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -78,7 +80,7 @@
             this.groupBox2.Controls.Add(this.radioButtonApellido);
             this.groupBox2.Controls.Add(this.radioButtonCedula);
             this.groupBox2.Controls.Add(this.txtBuscar);
-            this.groupBox2.Location = new System.Drawing.Point(3, 89);
+            this.groupBox2.Location = new System.Drawing.Point(3, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(490, 65);
             this.groupBox2.TabIndex = 20;
@@ -131,12 +133,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCargo);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtCedula);
             this.groupBox1.Controls.Add(this.txtContraseña);
             this.groupBox1.Controls.Add(this.txtSueldo);
             this.groupBox1.Controls.Add(this.txtEmail);
+            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -149,12 +153,12 @@
             this.groupBox1.Controls.Add(this.txtApellido);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.CEDULA);
-            this.groupBox1.Location = new System.Drawing.Point(3, 160);
+            this.groupBox1.Location = new System.Drawing.Point(3, 136);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(490, 284);
+            this.groupBox1.Size = new System.Drawing.Size(490, 328);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "DATOS VENTA";
+            this.groupBox1.Text = "DATOS";
             // 
             // txtId
             // 
@@ -187,7 +191,7 @@
             // txtContraseña
             // 
             this.txtContraseña.Enabled = false;
-            this.txtContraseña.Location = new System.Drawing.Point(116, 252);
+            this.txtContraseña.Location = new System.Drawing.Point(116, 287);
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(362, 20);
             this.txtContraseña.TabIndex = 9;
@@ -212,7 +216,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 255);
+            this.label3.Location = new System.Drawing.Point(12, 290);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 8;
@@ -429,7 +433,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(20, 452);
+            this.pictureBox1.Location = new System.Drawing.Point(17, 472);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(21, 19);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -440,11 +444,29 @@
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClientes.Location = new System.Drawing.Point(11, 450);
+            this.dataGridViewClientes.Location = new System.Drawing.Point(11, 470);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
-            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 157);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 144);
             this.dataGridViewClientes.TabIndex = 18;
             this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick_1);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(12, 261);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "CARGO:";
+            // 
+            // txtCargo
+            // 
+            this.txtCargo.Enabled = false;
+            this.txtCargo.Location = new System.Drawing.Point(116, 254);
+            this.txtCargo.Name = "txtCargo";
+            this.txtCargo.Size = new System.Drawing.Size(362, 20);
+            this.txtCargo.TabIndex = 15;
             // 
             // GestionarEmpleados
             // 
@@ -512,5 +534,7 @@
         private System.Windows.Forms.TextBox txtSueldo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtCargo;
     }
 }

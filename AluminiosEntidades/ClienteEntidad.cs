@@ -8,7 +8,6 @@ namespace AluminiosEntidades
 {
     public class ClienteEntidad : PersonaEntidad
     {
-       
-
+        public int Estado { get; set; }
     }
 }

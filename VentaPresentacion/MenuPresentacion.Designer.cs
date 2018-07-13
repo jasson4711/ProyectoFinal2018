@@ -40,6 +40,7 @@
             this.buttonProveedores = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lblEmpleado = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -200,6 +201,19 @@
             this.lblEmpleado.TabIndex = 10;
             this.lblEmpleado.Text = "EMPLEADO CONECTADO: ";
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.SteelBlue;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button2.Location = new System.Drawing.Point(768, 178);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(146, 79);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Reportes";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
             // MenuPresentacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,6 +221,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(936, 695);
             this.ControlBox = false;
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonProveedores);
@@ -223,6 +238,7 @@
             this.Name = "MenuPresentacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Acrividrios";
+            this.Load += new System.EventHandler(this.MenuPresentacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -243,5 +259,6 @@
         private System.Windows.Forms.Button buttonProveedores;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblEmpleado;
+        private System.Windows.Forms.Button button2;
     }
 }

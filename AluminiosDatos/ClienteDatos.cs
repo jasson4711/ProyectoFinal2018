@@ -25,6 +25,7 @@ namespace AluminiosDatos
                              ,[Tel_Cli]
                              ,[Email_Cli]
                                 FROM [dbo].[Clientes]
+                                WHERE [estado]= 1
                                 ORDER BY [Ape_Cli]";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -50,14 +51,16 @@ namespace AluminiosDatos
                                        ,[Ape_Cli]
                                        ,[Dir_Cli]
                                        ,[Tel_Cli]
-                                       ,[Email_Cli])
+                                       ,[Email_Cli]
+                                        ,[estado])
                                  VALUES(
                                        @ced
                                        ,@nom
                                        ,@ape
                                        ,@dir
                                        ,@tel
-                                       ,@email);
+                                       ,@email
+                                        ,@estado);
                                 SELECT SCOPE_IDENTITY()";
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
@@ -67,25 +70,52 @@ namespace AluminiosDatos
                     cmd.Parameters.AddWithValue("@dir", cliente.Direccion);
                     cmd.Parameters.AddWithValue("@tel", cliente.Telefono);
                     cmd.Parameters.AddWithValue("@email", cliente.Email);
+                    cmd.Parameters.AddWithValue("@estado", 1);
                     cliente.Id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 return cliente.Id;
             }
         }
 
-        public static void EliminarCliente(ClienteEntidad clienteActual)
+        public static void EliminarCliente(ClienteEntidad clienteNuevo)
         {
+            //using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            //{
+            //    cn.Open();
+            //    String sql = @"DELETE FROM [dbo].[Clientes]
+            //                    WHERE [Id_Cli]= @clienteId";
+            //    using (SqlCommand cmd = new SqlCommand(sql, cn))
+            //    {
+
+            //        cmd.Parameters.AddWithValue("@clienteId", clienteActual.Id);
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
             using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
             {
                 cn.Open();
-                String sql = @"DELETE FROM [dbo].[Clientes]
-                                WHERE [Id_Cli]= @clienteId";
+                String sql = @"UPDATE [dbo].[Clientes]
+                               SET [Ced_Cli] = @ced
+                                  ,[Nom_Cli] = @nom
+                                  ,[Ape_Cli] = @ape
+                                  ,[Dir_Cli] = @dir
+                                  ,[Tel_Cli] = @tel
+                                  ,[Email_Cli] = @email
+                                  ,[estado]=@estado
+                               WHERE [Id_Cli]= @clienteId";
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
-
-                    cmd.Parameters.AddWithValue("@clienteId", clienteActual.Id);
+                    cmd.Parameters.AddWithValue("@ced", clienteNuevo.Cedula);
+                    cmd.Parameters.AddWithValue("@nom", clienteNuevo.Nombre);
+                    cmd.Parameters.AddWithValue("@ape", clienteNuevo.Apellido);
+                    cmd.Parameters.AddWithValue("@dir", clienteNuevo.Direccion);
+                    cmd.Parameters.AddWithValue("@tel", clienteNuevo.Telefono);
+                    cmd.Parameters.AddWithValue("@email", clienteNuevo.Email);
+                    cmd.Parameters.AddWithValue("@clienteId", clienteNuevo.Id);
+                    cmd.Parameters.AddWithValue("@estado", 0);
                     cmd.ExecuteNonQuery();
                 }
+
             }
         }
 
@@ -102,6 +132,7 @@ namespace AluminiosDatos
                                   ,[Dir_Cli] = @dir
                                   ,[Tel_Cli] = @tel
                                   ,[Email_Cli] = @email
+                                  ,[estado]=@estado
                                WHERE [Id_Cli]= @clienteId";
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
@@ -112,6 +143,7 @@ namespace AluminiosDatos
                     cmd.Parameters.AddWithValue("@tel", clienteNuevo.Telefono);
                     cmd.Parameters.AddWithValue("@email", clienteNuevo.Email);
                     cmd.Parameters.AddWithValue("@clienteId", clienteNuevo.Id);
+                    cmd.Parameters.AddWithValue("@estado", clienteNuevo.Estado);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -134,7 +166,8 @@ namespace AluminiosDatos
                              ,[Tel_Cli]
                              ,[Email_Cli]
                                 FROM [dbo].[Clientes]
-                                WHERE [Id_Cli]= @clienteId";
+                                WHERE [Id_Cli]= @clienteId
+                                    and [estado] = 1";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@clienteId", idCliente);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -163,7 +196,8 @@ namespace AluminiosDatos
                              ,[Tel_Cli]
                              ,[Email_Cli]
                                 FROM [dbo].[Clientes]
-                                WHERE [Ced_Cli]= @cedula";
+                                WHERE [Ced_Cli]= @cedula
+                                        and [estado] = 1";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@cedula", cedulaCliente);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -215,6 +249,7 @@ namespace AluminiosDatos
             cliente.Direccion = Convert.ToString(reader["Dir_Cli"]);
             cliente.Telefono = Convert.ToString(reader["Tel_Cli"]);
             cliente.Email = Convert.ToString(reader["Email_Cli"]);
+            //cliente.Estado = Convert.ToInt32(reader["estado"]);
             return cliente;
         }
     }

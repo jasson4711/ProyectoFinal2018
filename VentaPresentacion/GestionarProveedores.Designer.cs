@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GestionarProveedores));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.pbBuscar = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
@@ -53,12 +54,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -66,12 +68,20 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.pbBuscar);
             this.groupBox2.Controls.Add(this.txtBuscar);
-            this.groupBox2.Location = new System.Drawing.Point(3, 93);
+            this.groupBox2.Location = new System.Drawing.Point(3, 60);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(490, 65);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Busqueda";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(5, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Nombre proveedor";
             // 
             // pbBuscar
             // 
@@ -94,10 +104,11 @@
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClientes.Location = new System.Drawing.Point(11, 350);
+            this.dataGridViewClientes.Location = new System.Drawing.Point(9, 191);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
-            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 157);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(475, 173);
             this.dataGridViewClientes.TabIndex = 22;
+            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick);
             // 
             // toolStrip1
             // 
@@ -113,7 +124,7 @@
             this.toolStripCancelar});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(510, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(513, 39);
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -297,6 +308,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.dataGridViewClientes);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtEmail);
@@ -309,30 +322,33 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(3, 164);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(490, 284);
+            this.groupBox1.Size = new System.Drawing.Size(490, 370);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "DATOS VENTA";
+            this.groupBox1.Text = "DATOS";
             // 
-            // label2
+            // pictureBox1
             // 
-            this.label2.Location = new System.Drawing.Point(5, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Nombre proveedor";
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(14, 194);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(21, 19);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // GestionarProveedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 534);
+            this.ClientSize = new System.Drawing.Size(513, 546);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.dataGridViewClientes);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "GestionarProveedores";
             this.Text = "GestionarProveedores";
+            this.Load += new System.EventHandler(this.GestionarProveedores_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).EndInit();
@@ -341,6 +357,7 @@
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -373,5 +390,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

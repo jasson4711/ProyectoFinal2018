@@ -10,6 +10,7 @@ namespace AluminiosEntidades
     {
         public double Sueldo { get; set; }
         public string Contraseña { get; set; }
-
+        public string Cargo { get; set; }
+        public int Estado { get; set; }
     }
 }

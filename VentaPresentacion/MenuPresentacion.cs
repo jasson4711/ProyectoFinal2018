@@ -18,6 +18,7 @@ namespace VentaPresentacion
             InitializeComponent();
             empleadoActual = empleado;
             lblEmpleado.Text += empleadoActual.Nombre + " " + empleadoActual.Apellido;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace VentaPresentacion
 
         private void buttonClientes_Click(object sender, EventArgs e)
         {
-            ManejoClientes clientes = new ManejoClientes();
+            ManejoClientes clientes = new ManejoClientes(empleadoActual);
             clientes.ShowDialog();
         }
 
@@ -49,6 +50,16 @@ namespace VentaPresentacion
         {
             GestionarProveedores proveedores = new GestionarProveedores();
             proveedores.ShowDialog();
+        }
+
+        private void MenuPresentacion_Load(object sender, EventArgs e)
+        {
+            string cargo = empleadoActual.Cargo;
+            cargo.Trim();
+            if (cargo.Equals("cajero"))
+            {
+                buttonProveedores.Enabled = false;
+            }
         }
     }
 }

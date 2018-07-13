@@ -188,7 +188,7 @@ namespace VentaPresentacion
 
         private void pbBuscar_Click(object sender, EventArgs e)
         {
-
+            BuscarProveedor();
         }
 
         private void BuscarProveedor()
@@ -202,6 +202,38 @@ namespace VentaPresentacion
                 else
                     MessageBox.Show("Ingrese datos en el campo de busqueda");
 
+        }
+
+        private void dataGridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int index = e.RowIndex;
+
+                DataGridViewRow row = this.dataGridViewClientes.Rows[index];
+
+                txtId.Text = row.Cells["Id"].Value.ToString();
+                txtNombre.Text = row.Cells["nombre"].Value.ToString();
+               
+                txtDireccion.Text = row.Cells["direccion"].Value.ToString();
+                txtEmail.Text = row.Cells["email"].Value.ToString();
+                txtTelefono.Text = row.Cells["telefono"].Value.ToString();
+                
+                EstablecerProveedorActual();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void GestionarProveedores_Load(object sender, EventArgs e)
+        {
+            CargarDataGridClientes();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            CargarDataGridClientes();
         }
     }
 }

@@ -27,6 +27,7 @@ namespace AluminiosDatos
                              ,[Email_Emp]
                              ,[Sue_Emp]
                              ,[Cla_Emp]
+                            ,[cargo]
                                 FROM [dbo].[Empleados]
                                 ORDER BY [Ape_Emp]";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -56,6 +57,7 @@ namespace AluminiosDatos
                              ,[Email_Emp]
                              ,[Sue_Emp]
                              ,[Cla_Emp]
+                            ,[cargo]
                                 FROM [dbo].[Empleados]
                                 WHERE [Ape_Emp] LIKE '%' + @apellido + '%'";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -86,6 +88,7 @@ namespace AluminiosDatos
                              ,[Email_Emp]
                              ,[Sue_Emp]
                              ,[Cla_Emp]
+                            ,[cargo]
                                 FROM [dbo].[Empleados]
                                 WHERE [Id_Emp]= @empleadoId";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -117,6 +120,7 @@ namespace AluminiosDatos
                              ,[Email_Emp]
                              ,[Sue_Emp]
                              ,[Cla_Emp]
+                                ,[cargo]
                                 FROM [dbo].[Empleados]
                                 WHERE [Ced_Emp]= @cedula";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -146,7 +150,8 @@ namespace AluminiosDatos
                                ,[Tel_Emp]
                                ,[Email_Emp]
                                ,[Sue_Emp]
-                               ,[Cla_Emp])
+                               ,[Cla_Emp]
+                                ,[cargo])
                                   VALUES(
                                @ced
                                ,@nom
@@ -155,7 +160,8 @@ namespace AluminiosDatos
                                ,@tel
                                ,@email
                                 ,@sue
-                               ,@clave);
+                               ,@clave
+                                ,@cargo);
                             SELECT SCOPE_IDENTITY()";
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
@@ -167,6 +173,7 @@ namespace AluminiosDatos
                     cmd.Parameters.AddWithValue("@email", empleado.Email);
                     cmd.Parameters.AddWithValue("@sue", empleado.Sueldo);
                     cmd.Parameters.AddWithValue("@clave", empleado.Contraseña);
+                    cmd.Parameters.AddWithValue("@cargo", empleado.Cargo);
                     empleado.Id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 return empleado.Id;
@@ -204,6 +211,7 @@ namespace AluminiosDatos
                                   ,[Email_Emp] = @email
                                 ,[Sue_Emp] = @sue
                                   ,[Cla_Emp] = @clave
+                                    ,[cargo] = @cargo
                                WHERE [Id_Emp]= @empleadoId";
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
@@ -215,6 +223,7 @@ namespace AluminiosDatos
                     cmd.Parameters.AddWithValue("@email", empleado.Email);
                     cmd.Parameters.AddWithValue("@sue", empleado.Sueldo);
                     cmd.Parameters.AddWithValue("@clave", empleado.Contraseña);
+                    cmd.Parameters.AddWithValue("@cargo", empleado.Cargo);
                     cmd.Parameters.AddWithValue("@empleadoId", empleado.Id);
                     cmd.ExecuteNonQuery();
                 }
@@ -237,6 +246,7 @@ namespace AluminiosDatos
             empleado.Email = Convert.ToString(reader["Email_Emp"]);
             empleado.Sueldo = Convert.ToDouble(reader["Sue_Emp"]);
             empleado.Contraseña = Convert.ToString(reader["Cla_Emp"]);
+            empleado.Cargo = Convert.ToString(reader["cargo"]);
             return empleado;
         }
     }

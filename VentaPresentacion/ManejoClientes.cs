@@ -17,10 +17,12 @@ namespace VentaPresentacion
         ClienteEntidad clienteActual = new ClienteEntidad();
         List<ClienteEntidad> ListaClientes = new List<ClienteEntidad>();
         string opcionToolStrip = "";
+        EmpleadoEntidad empleado = new EmpleadoEntidad();
 
-        public ManejoClientes()
+        public ManejoClientes(EmpleadoEntidad empleadoActual)
         {
             InitializeComponent();
+            empleado = empleadoActual;
         }
 
         private void toolStripEditar_Click(object sender, EventArgs e)
@@ -205,20 +207,27 @@ namespace VentaPresentacion
 
         private void toolStripEliminar_Click(object sender, EventArgs e)
         {
-            if (txtId.Text == "")
+            if (empleado.Cargo == "cajero")
             {
-                MessageBox.Show("Busque o seleccione un cliente para Eliminar");
+                MessageBox.Show("Usted no cuenta con los permisos necesarios para la elminacion de clientes");
             }
             else
             {
-                if (MessageBox.Show("Desea realmente elminar la informacion de la base de datos?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (txtId.Text == "")
                 {
-                    EstablecerClienteActual();
-                    ClienteNegocio.EliminarCliente(clienteActual);
-                    HabilitarControlesMenu(false);
-                    HabilitarControlesIngreso(false);
-                    CargarDataGridClientes();
-                    limpiarIngreso();
+                    MessageBox.Show("Busque o seleccione un cliente para Eliminar");
+                }
+                else
+                {
+                    if (MessageBox.Show("Desea realmente elminar la informacion de la base de datos?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        EstablecerClienteActual();
+                        ClienteNegocio.EliminarCliente(clienteActual);
+                        HabilitarControlesMenu(false);
+                        HabilitarControlesIngreso(false);
+                        CargarDataGridClientes();
+                        limpiarIngreso();
+                    }
                 }
             }
         }

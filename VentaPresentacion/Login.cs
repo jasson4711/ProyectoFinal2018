@@ -15,14 +15,15 @@ namespace VentaPresentacion
 {
     public partial class Login : Form
     {
-        
+
         public Login()
         {
 
             InitializeComponent();
-    }
+        }
 
-    private void Login_Load(object sender, EventArgs e)
+        
+        private void Login_Load(object sender, EventArgs e)
         {
 
         }
@@ -50,15 +51,17 @@ namespace VentaPresentacion
             {
                 MessageBox.Show("No se ha podido establecer conexión a la base de datos");
             }
-            
+
 
             if (contraseña.Equals(empleadoActual.Contraseña))
             {
+                this.Dispose();
                 MenuPresentacion menu = new MenuPresentacion(empleadoActual);
                 //this.Close();
                 menu.Show();
-                Visible = false;
-                
+                //Visible = false;
+                this.Close();
+
             }
             else
             {

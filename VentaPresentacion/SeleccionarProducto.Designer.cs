@@ -57,6 +57,7 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
+            this.btnVerMateriales = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -147,6 +148,7 @@
             this.toolStripActualizar.Size = new System.Drawing.Size(28, 36);
             this.toolStripActualizar.Text = "toolStripButtonActualizar";
             this.toolStripActualizar.ToolTipText = "Actualizar un producto";
+            this.toolStripActualizar.Click += new System.EventHandler(this.toolStripActualizar_Click);
             // 
             // toolStripEliminar
             // 
@@ -159,6 +161,7 @@
             this.toolStripEliminar.Size = new System.Drawing.Size(28, 36);
             this.toolStripEliminar.Text = "toolStripButtonBorrar";
             this.toolStripEliminar.ToolTipText = "Borrar un producto";
+            this.toolStripEliminar.Click += new System.EventHandler(this.toolStripEliminar_Click);
             // 
             // toolStripGuardar
             // 
@@ -171,6 +174,7 @@
             this.toolStripGuardar.Size = new System.Drawing.Size(36, 36);
             this.toolStripGuardar.Text = "toolStripButtonGuardar";
             this.toolStripGuardar.ToolTipText = "Guardar Cambios";
+            this.toolStripGuardar.Click += new System.EventHandler(this.toolStripGuardar_Click);
             // 
             // toolStripSeparator1
             // 
@@ -193,6 +197,7 @@
             this.toolStripCancelar.Size = new System.Drawing.Size(36, 36);
             this.toolStripCancelar.Text = "toolStripButton1";
             this.toolStripCancelar.ToolTipText = "Cancelar cambios";
+            this.toolStripCancelar.Click += new System.EventHandler(this.toolStripCancelar_Click);
             // 
             // groupBox2
             // 
@@ -255,6 +260,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnVerMateriales);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtCantidad);
@@ -270,7 +276,7 @@
             this.groupBox1.Size = new System.Drawing.Size(549, 170);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "DATOS CLIENTE";
+            this.groupBox1.Text = "DATOS PRODUCTO";
             // 
             // txtId
             // 
@@ -363,6 +369,17 @@
             this.txtNombre.Size = new System.Drawing.Size(427, 20);
             this.txtNombre.TabIndex = 3;
             // 
+            // btnVerMateriales
+            // 
+            this.btnVerMateriales.Enabled = false;
+            this.btnVerMateriales.Location = new System.Drawing.Point(407, 19);
+            this.btnVerMateriales.Name = "btnVerMateriales";
+            this.btnVerMateriales.Size = new System.Drawing.Size(136, 23);
+            this.btnVerMateriales.TabIndex = 15;
+            this.btnVerMateriales.Text = "Ver materiales";
+            this.btnVerMateriales.UseVisualStyleBackColor = true;
+            this.btnVerMateriales.Click += new System.EventHandler(this.btnVerMateriales_Click);
+            // 
             // SeleccionarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,5 +440,6 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.Button btnVerMateriales;
     }
 }

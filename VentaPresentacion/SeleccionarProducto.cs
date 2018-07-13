@@ -15,6 +15,7 @@ namespace VentaPresentacion
     {
         ProductoEntidadMostrar productoActual = new ProductoEntidadMostrar();
         List<ProductoEntidadMostrar> listaProductos = new List<ProductoEntidadMostrar>();
+        List<ProductoDetalleEntidad> listaMateriales = new List<ProductoDetalleEntidad>();
         string opcionToolStrip = "";
         private int _idProducto;
         public int IdProducto
@@ -81,6 +82,10 @@ namespace VentaPresentacion
             if (txtId.Text == "")
             {
                 productoActual.Id = 0;
+                productoActual.Nombre = txtNombre.Text;
+                productoActual.Descripcion = txtDescripcion.Text;
+                productoActual.Precio = Convert.ToDouble(txtPrecio.Text);
+                productoActual.Cantidad = Convert.ToInt32(txtCantidad.Text);
             }
             else
             {
@@ -177,6 +182,7 @@ namespace VentaPresentacion
             HabilitarControlesMenuNuevo(true);
             opcionToolStrip = "nuevo";
             limpiarIngreso();
+            txtPrecio.Text = "0,00";
         }
 
         private void limpiarIngreso()
@@ -186,7 +192,7 @@ namespace VentaPresentacion
             txtDescripcion.Text = "";
             txtPrecio.Text = "";
             txtCantidad.Text = "";
-
+            productoActual = new ProductoEntidadMostrar();
         }
 
         private void HabilitarControlesMenuNuevo(bool v)
@@ -205,8 +211,137 @@ namespace VentaPresentacion
             txtNombre.Enabled = v;
             txtId.Enabled = v;
             txtDescripcion.Enabled = v;
-            txtPrecio.Enabled = v;
             txtCantidad.Enabled = v;
+            btnVerMateriales.Enabled = v;
+        }
+
+        private void toolStripActualizar_Click(object sender, EventArgs e)
+        {
+            if (txtId.Text == "")
+            {
+                MessageBox.Show("Busque o seleccione un producto para modificarlo");
+            }
+            else
+            {
+                HabilitarControlesMenuActualizar(true);
+                HabilitarControlesIngreso(true);
+                txtNombre.Focus();
+                opcionToolStrip = "modificar";
+            }
+        }
+        private void HabilitarControlesMenuActualizar(Boolean v)
+        {
+            toolStripNuevo.Enabled = !v;
+            toolStripActualizar.Enabled = v;
+            toolStripEliminar.Enabled = !v;
+            toolStripGuardar.Enabled = v;
+            toolStripCancelar.Enabled = v;
+
+            toolStripEditar.Enabled = !v;
+        }
+
+        private void toolStripEliminar_Click(object sender, EventArgs e)
+        {
+            if (txtId.Text == "")
+            {
+                MessageBox.Show("Busque o seleccione un producto para Eliminar");
+            }
+            else
+            {
+                if (MessageBox.Show("Desea realmente elminar la informacion de la base de datos?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    EstablecerProductoActual();
+                    ProductoNegocio.EliminarProducto(productoActual.Id);
+                    HabilitarControlesMenu(false);
+                    HabilitarControlesIngreso(false);
+                    CargarListaProductos();
+                    limpiarIngreso();
+                }
+            }
+        }
+
+        private void toolStripGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Guardar();
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void Guardar()
+        {
+            if (validarDatosEntrada())
+            {
+
+                EstablecerProductoActual();
+                ProductoEntidad producto = EstablecerProductoEntidad();
+
+                if (listaMateriales.Count > 0)
+                {
+
+                    //if (opcionToolStrip == "nuevo")
+                    //{
+                    //    ProductoNegocio.GuardarProducto(producto);
+                    //    MessageBox.Show("Nuevo producto guardado con exito");
+                    //}
+                    //else if (opcionToolStrip == "modificar")
+                    //{
+                    //    EstablecerProductoActual();
+                    //    ProductoNegocio.ActualizarProducto(producto);
+                    //    MessageBox.Show("Producto actualizado con exito");
+                    //}
+                    //dgvProductos.DataSource = null;
+                    //CargarListaProductos();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor ingrese los materiales con los que se fabricó el producto");
+                }
+
+            }
+        }
+
+        private ProductoEntidad EstablecerProductoEntidad()
+        {
+            ProductoEntidad producto = new ProductoEntidad();
+            producto.Id = productoActual.Id;
+            producto.Nombre = productoActual.Nombre;
+            producto.Descripcion = productoActual.Descripcion;
+            producto.Cantidad = productoActual.Cantidad;
+            listaMateriales = ProductoNegocio.DevolverListaMaterialesProducto(producto.Id);
+            producto.listaMateriales = listaMateriales;
+            return producto;
+        }
+
+        private bool validarDatosEntrada()
+        {
+            if (txtNombre.Text == "" || txtDescripcion.Text == "" || txtPrecio.Text == ""
+                || txtCantidad.Text == "")
+            {
+                MessageBox.Show("Ingrese correctamente todos los campos");
+                txtNombre.Focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void toolStripCancelar_Click(object sender, EventArgs e)
+        {
+            HabilitarControlesMenu(false);
+            HabilitarControlesIngreso(false);
+            limpiarIngreso();
+        }
+
+        private void btnVerMateriales_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

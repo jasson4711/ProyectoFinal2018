@@ -66,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrarMaterialesProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministrarMaterialesProducto.Designer.cs">
+      <DependentUpon>AdministrarMaterialesProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionApp.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -115,6 +121,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AdministrarMaterialesProducto.resx">
+      <DependentUpon>AdministrarMaterialesProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GestionarEmpleados.resx">
       <DependentUpon>GestionarEmpleados.cs</DependentUpon>
     </EmbeddedResource>

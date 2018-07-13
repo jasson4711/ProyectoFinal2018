@@ -28,5 +28,15 @@ namespace AluminiosNegocio
         {
             return ProductoDatos.DevolverProductosPorNombre(text);
         }
+
+        public static void EliminarProducto(int id)
+        {
+            ProductoDatos.EliminarProducto(id);
+        }
+
+        public static List<ProductoDetalleEntidad> DevolverListaMaterialesProducto(int id)
+        {
+            return ProductoDatos.DevolverListaMaterialesProducto(id);
+        }
     }
 }

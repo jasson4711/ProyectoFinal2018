@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AluminiosNegocio
 {
-    class MaterialNegocio
+    public static class MaterialNegocio
     {
     }
 }

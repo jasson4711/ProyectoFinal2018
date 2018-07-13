@@ -15,6 +15,7 @@ namespace VentaPresentacion
 {
     public partial class VentaPresentacion : Form
     {
+        bool ventaRealizada = false;
         int idEmpleado = 0;
         int id_venta = 0;
         ClienteEntidad clienteActual = new ClienteEntidad();
@@ -41,6 +42,7 @@ namespace VentaPresentacion
                 {
                     clienteActual = ClienteNegocio.DevolverClientePorID(frm.IdCliente);
                     LlenarCamposTextoCliente();
+                    ventaRealizada = true;
                 }
             }
             catch
@@ -83,10 +85,18 @@ namespace VentaPresentacion
 
         private void btnCancelarFactura_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Seguro que desea cancelar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!ventaRealizada)
             {
                 this.Close();
             }
+            else
+            {
+                if (MessageBox.Show("¿Seguro que desea cancelar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -274,7 +284,7 @@ namespace VentaPresentacion
         private void LlenarCamposTextoProducto()
         {
             txtVentaNombre.Text = productoActual.Nombre + " " + productoActual.Descripcion;
-            txtVentaCantidad.Text = productoActual.Cantidad.ToString();
+            txtVentaCantidad.Text = 0 + "";
             txtVentaPrecio.Text = productoActual.Precio.ToString();
         }
 
@@ -305,7 +315,7 @@ namespace VentaPresentacion
             bool productoYaExiste = false;
             DetalleEntidadMostrar detalle = CrearObjetoDetalle();
             int cant = productoActual.Cantidad;
-            if (cant < detalle.Cantidad)
+            if (cant < detalle.Cantidad || cant == 0)
             {
                 MessageBox.Show("No dispone de la cantidad especificada.");
             }
@@ -336,6 +346,7 @@ namespace VentaPresentacion
                             LimpiarCamposProductos();
                             txtVentaCantidad.ReadOnly = true;
                             button1.Enabled = false;
+                            ventaRealizada = true;
                             CalcularMontosVenta();
                         }
 
@@ -344,6 +355,7 @@ namespace VentaPresentacion
                 }
                 if (!productoYaExiste)
                 {
+                    ventaRealizada = true;
                     listaProductos.Add(detalle);
                     dgvDetallesCompra.DataSource = null;
                     dgvDetallesCompra.DataSource = listaProductos;
@@ -511,10 +523,12 @@ namespace VentaPresentacion
             {
                 VentaEntidad venta = FabricarCabecera();
                 id_venta = VentaNegocio.GenerarVenta(venta);
+                ProductoNegocio.ActualizarStock(venta.ListaDetalles);
                 if (MessageBox.Show("Desea imprimir?", "FACTURA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     ImprimirFactura();
                 }
+
             }
             catch
             {
@@ -613,11 +627,12 @@ namespace VentaPresentacion
 
             }
             e.Graphics.DrawString("Subtotal".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
-            e.Graphics.DrawString(((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            double subtotal = (currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12;
+            e.Graphics.DrawString(subtotal.ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
             e.Graphics.DrawString("Iva".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
-            e.Graphics.DrawString((currentVentaCabecera.Total - ((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12)).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            e.Graphics.DrawString((currentVentaCabecera.Total - currentVentaCabecera.Ganancia - subtotal).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
             e.Graphics.DrawString("Mano de obra".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
-            e.Graphics.DrawString((((currentVentaCabecera.Total - currentVentaCabecera.Ganancia) / 1.12)/1.10).ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
+            e.Graphics.DrawString(currentVentaCabecera.Ganancia.ToString(), fuenteDetalle, Brushes.Black, x + 300, y);
 
             e.Graphics.DrawString("Total".ToString(), fuenteDetalle, Brushes.Black, x + 200, y += 20);
             e.Graphics.DrawString(currentVentaCabecera.Total.ToString(), fuenteDetalle, Brushes.Black, x + 300, y);

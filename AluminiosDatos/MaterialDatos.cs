@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AluminiosDatos
 {
-    public class MaterialDatos
+    public static class MaterialDatos
     {
     }
 }

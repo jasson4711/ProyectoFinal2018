@@ -50,7 +50,15 @@ namespace VentaPresentacion
 
         private void ManejoClientes_Load(object sender, EventArgs e)
         {
-            CargarDataGridClientes();
+            try
+            {
+                CargarDataGridClientes();
+            }
+            catch
+            {
+                MessageBox.Show("No se han podido mostrar los datos");
+                this.Close();
+            }
 
         }
 

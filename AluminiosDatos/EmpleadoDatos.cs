@@ -57,7 +57,7 @@ namespace AluminiosDatos
                              ,[Sue_Emp]
                              ,[Cla_Emp]
                                 FROM [dbo].[Empleados]
-                                WHERE [Ape_Emp]= '%' + @apellido + '%'";
+                                WHERE [Ape_Emp] LIKE '%' + @apellido + '%'";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@apellido", text);
                 SqlDataReader reader = cmd.ExecuteReader();

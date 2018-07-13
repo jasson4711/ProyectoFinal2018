@@ -44,6 +44,7 @@
     <Compile Include="DetalleEntidad.cs" />
     <Compile Include="DetalleEntidadMostrar.cs" />
     <Compile Include="EmpleadoEntidad.cs" />
+    <Compile Include="MaterialDetalleEntidad.cs" />
     <Compile Include="MaterialEntidad.cs" />
     <Compile Include="PersonaEntidad.cs" />
     <Compile Include="ProductoDetalleEntidad.cs" />

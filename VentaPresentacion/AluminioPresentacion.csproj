@@ -77,6 +77,18 @@
     <Compile Include="GestionarEmpleados.Designer.cs">
       <DependentUpon>GestionarEmpleados.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionarMateriales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionarMateriales.Designer.cs">
+      <DependentUpon>GestionarMateriales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionarProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionarProveedores.Designer.cs">
+      <DependentUpon>GestionarProveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +129,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GestionarEmpleados.resx">
       <DependentUpon>GestionarEmpleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionarMateriales.resx">
+      <DependentUpon>GestionarMateriales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionarProveedores.resx">
+      <DependentUpon>GestionarProveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

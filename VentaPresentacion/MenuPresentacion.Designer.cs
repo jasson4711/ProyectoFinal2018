@@ -173,6 +173,7 @@
             this.buttonProveedores.Text = "Proveedores";
             this.buttonProveedores.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.buttonProveedores.UseVisualStyleBackColor = false;
+            this.buttonProveedores.Click += new System.EventHandler(this.buttonProveedores_Click);
             // 
             // button1
             // 

@@ -104,7 +104,7 @@ namespace VentaPresentacion
                     try
                     {
                         GuardarDetallesProducto();
-                        this.Close();
+                       
                     }
                     catch
                     {

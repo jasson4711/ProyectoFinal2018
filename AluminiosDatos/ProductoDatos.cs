@@ -66,7 +66,52 @@ namespace AluminiosDatos
 
         public static void GuardarProducto(ProductoEntidad productoBase)
         {
-            
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+
+                cn.Open();
+                string sql = @"INSERT INTO [dbo].[Productos_Cabecera]
+                                     ([Nom_Pro]
+                                     ,[Des_Pro]
+                                     ,[Pre_Pro]
+                                     ,[Can_Pro])
+                                    VALUES (@nombre, @descripcion,@precio,@cantidad)
+                                    SELECT SCOPE_IDENTITY();";
+
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", productoBase.Nombre);
+                    cmd.Parameters.AddWithValue("@descripcion", productoBase.Descripcion);
+                    cmd.Parameters.AddWithValue("@precio", productoBase.Precio);
+                    cmd.Parameters.AddWithValue("@cantidad", productoBase.Cantidad);
+                    productoBase.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                string sqlDetalle = @"INSERT INTO [dbo].[Productos_Detalle]
+                                           ([Id_Pro_Per]
+                                           ,[Id_Mat_Uti]
+                                           ,[Can_Mat_Uti])
+                                     VALUES (@idPro, @idMat, @cantidad)";
+
+                using (SqlCommand cmd = new SqlCommand(sqlDetalle, cn))
+                {
+
+                    foreach (var detalle in productoBase.listaMateriales)
+                    {
+                        //
+                        // como se reutiliza el mismo objeto SqlCommand es necesario limpiar los parametros
+                        // de la operacion previa, sino estos se iran agregando en la coleccion, generando un fallo
+                        //
+                        cmd.Parameters.Clear();
+
+                        cmd.Parameters.AddWithValue("@idPro", productoBase.Id);
+                        cmd.Parameters.AddWithValue("@idMat", detalle.Id_Material);
+                        cmd.Parameters.AddWithValue("@cantidad", detalle.Cantidad);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                }
+            }
         }
 
         private static ProductoDetalleEntidadMostrar CargarDetalleProductoMostrar(SqlDataReader reader)

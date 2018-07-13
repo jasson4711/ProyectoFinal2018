@@ -287,9 +287,9 @@ namespace VentaPresentacion
             {
 
                 EstablecerProductoActual();
-                productoBase = EstablecerProductoEntidad();
+                EstablecerProductoEntidad();
 
-                if (listaMateriales.Count > 0)
+                if (productoBase.listaMateriales.Count > 0)
                 {
 
                     if (opcionToolStrip == "nuevo")
@@ -314,14 +314,14 @@ namespace VentaPresentacion
             }
         }
 
-        private ProductoEntidad EstablecerProductoEntidad()
+        private void EstablecerProductoEntidad()
         {
-            ProductoEntidad producto = new ProductoEntidad();
-            producto.Id = productoActual.Id;
-            producto.Nombre = productoActual.Nombre;
-            producto.Descripcion = productoActual.Descripcion;
-            producto.Cantidad = productoActual.Cantidad;
-            return producto;
+
+            productoBase.Id = productoActual.Id;
+            productoBase.Nombre = productoActual.Nombre;
+            productoBase.Descripcion = productoActual.Descripcion;
+            productoBase.Cantidad = productoActual.Cantidad;
+          
         }
 
         private bool validarDatosEntrada()
@@ -353,7 +353,7 @@ namespace VentaPresentacion
             if (opcionToolStrip == "nuevo")
             {
                 frm = new AdministrarMaterialesProducto(productoActual.Id, true);
-                frm.listaDetallesBase = productoBase.listaMateriales;
+                //frm.listaDetallesBase = productoBase.listaMateriales;
                 //List<ProductoDetalleEntidadMostrar> lista = new List<ProductoDetalleEntidadMostrar();
                 //foreach (var item in productoBase.listaMateriales)
                 //{

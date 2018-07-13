@@ -53,7 +53,28 @@ namespace AluminiosDatos
 
         public static void ActualizarInventario(ProductoEntidad productoBase)
         {
-            throw new NotImplementedException();
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"UPDATE [dbo].[Materiales]
+                             SET [Stock_Mat] = Stock_Mat - @cantidad
+                             WHERE [Id_Mat_Per] = @idMat";
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+
+                    foreach (var detalle in productoBase.listaMateriales)
+                    {
+                        //
+                        // como se reutiliza el mismo objeto SqlCommand es necesario limpiar los parametros
+                        // de la operacion previa, sino estos se iran agregando en la coleccion, generando un fallo
+                        //
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@idMat", detalle.Id_Material);
+                        cmd.Parameters.AddWithValue("@cantidad", detalle.Cantidad);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
         }
     }
 }

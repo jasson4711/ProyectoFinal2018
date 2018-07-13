@@ -176,7 +176,7 @@
             this.buttonProveedores.Text = "Proveedores";
             this.buttonProveedores.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.buttonProveedores.UseVisualStyleBackColor = false;
-            this.buttonProveedores.Click += new System.EventHandler(this.buttonProveedores_Click);
+            
             // 
             // button1
             // 
@@ -251,7 +251,7 @@
             this.Name = "MenuPresentacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Acrividrios";
-            this.Load += new System.EventHandler(this.MenuPresentacion_Load);
+            //this.Load += new System.EventHandler(this.MenuPresentacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);

@@ -35,7 +35,7 @@ namespace VentaPresentacion
 
         private void buttonClientes_Click(object sender, EventArgs e)
         {
-            ManejoClientes clientes = new ManejoClientes();
+            ManejoClientes clientes = new ManejoClientes(empleadoActual);
             clientes.ShowDialog();
         }
 

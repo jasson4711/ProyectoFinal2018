@@ -41,6 +41,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblEmpleado = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.labelCargo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -215,6 +216,16 @@
             this.button2.Text = "Reportes";
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // labelCargo
+            // 
+            this.labelCargo.AutoSize = true;
+            this.labelCargo.BackColor = System.Drawing.Color.Transparent;
+            this.labelCargo.Location = new System.Drawing.Point(375, 31);
+            this.labelCargo.Name = "labelCargo";
+            this.labelCargo.Size = new System.Drawing.Size(142, 13);
+            this.labelCargo.TabIndex = 12;
+            this.labelCargo.Text = "EMPLEADO CONECTADO: ";
+            // 
             // MenuPresentacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,6 +233,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(936, 695);
             this.ControlBox = false;
+            this.Controls.Add(this.labelCargo);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.button1);
@@ -261,5 +273,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblEmpleado;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labelCargo;
     }
 }

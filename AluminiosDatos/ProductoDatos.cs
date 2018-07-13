@@ -36,6 +36,43 @@ namespace AluminiosDatos
             return lista;
         }
 
+        public static List<ProductoDetalleEntidadMostrar> DevolverListaMaterialesProductoMostrar(int id)
+        {
+            List<ProductoDetalleEntidadMostrar> lista = new List<ProductoDetalleEntidadMostrar>();
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                //todo cambiar los campos a la base del proyecto
+                String sql = @"SELECT [Pre_Mat]
+                                 ,[Nom_Mat]
+                                 ,[Des_Mat]
+                                 ,[Uni_Med_Mat]
+                                 ,[Can_Mat_Uti]
+                                 ,[Id_Pro_Per]
+                             FROM [dbo].[View_ProductoDetalleMostrar]
+                             WHERE [Id_Pro_Per] = @id";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                //repita la ejecucion mientras tenga datos
+                while (reader.Read())
+                {
+                    lista.Add(CargarDetalleProductoMostrar(reader));
+                }
+            }
+            return lista;
+        }
+
+        private static ProductoDetalleEntidadMostrar CargarDetalleProductoMostrar(SqlDataReader reader)
+        {
+            ProductoDetalleEntidadMostrar detalle = new ProductoDetalleEntidadMostrar();
+            detalle.Nombre = reader["Nom_Mat"].ToString() + " "+ reader["Des_Mat"].ToString();
+            detalle.Cantidad = Convert.ToInt32(reader["Can_Mat_Uti"]);
+            detalle.Precio = Convert.ToDouble(reader["Pre_Mat"]);
+            detalle.UM = reader["Uni_Med_Mat"].ToString();
+            return detalle;
+        }
+
         public static List<ProductoDetalleEntidad> DevolverListaMaterialesProducto(int id)
         {
             List<ProductoDetalleEntidad> listaMateriales = new List<ProductoDetalleEntidad>();

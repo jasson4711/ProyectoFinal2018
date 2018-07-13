@@ -71,6 +71,10 @@ namespace VentaPresentacion
                 txtCantidad.Text = row.Cells["Cantidad"].Value.ToString();
 
                 EstablecerProductoActual();
+                //HabilitarControlesMenu(false);
+                
+                HabilitarControlesIngreso(false);
+                toolStripGuardar.Enabled = false;
             }
             catch (Exception)
             {
@@ -123,7 +127,7 @@ namespace VentaPresentacion
             toolStripNuevo.Enabled = v;
             toolStripActualizar.Enabled = v;
             toolStripEliminar.Enabled = v;
-            toolStripGuardar.Enabled = v;
+            //toolStripGuardar.Enabled = v;
             toolStripCancelar.Enabled = v;
 
             toolStripEditar.Enabled = !v;
@@ -232,7 +236,7 @@ namespace VentaPresentacion
         private void HabilitarControlesMenuActualizar(Boolean v)
         {
             toolStripNuevo.Enabled = !v;
-            toolStripActualizar.Enabled = v;
+            toolStripActualizar.Enabled = !v;
             toolStripEliminar.Enabled = !v;
             toolStripGuardar.Enabled = v;
             toolStripCancelar.Enabled = v;
@@ -336,12 +340,24 @@ namespace VentaPresentacion
         {
             HabilitarControlesMenu(false);
             HabilitarControlesIngreso(false);
+            toolStripGuardar.Enabled = false;
             limpiarIngreso();
         }
 
         private void btnVerMateriales_Click(object sender, EventArgs e)
         {
-
+            AdministrarMaterialesProducto frm;
+            if (opcionToolStrip == "nuevo")
+            {
+                frm = new AdministrarMaterialesProducto(productoActual.Id, true);
+            }
+            else
+            {
+                frm = new AdministrarMaterialesProducto(productoActual.Id, false);
+            }
+            frm.ShowDialog();
+            
+                
         }
     }
 }

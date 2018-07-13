@@ -38,5 +38,10 @@ namespace AluminiosNegocio
         {
             return ProductoDatos.DevolverListaMaterialesProducto(id);
         }
+
+        public static List<ProductoDetalleEntidadMostrar> DevolverListaMaterialesProductoMostrar(int id)
+        {
+            return ProductoDatos.DevolverListaMaterialesProductoMostrar(id);
+        }
     }
 }

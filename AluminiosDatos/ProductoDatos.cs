@@ -36,6 +36,115 @@ namespace AluminiosDatos
             return lista;
         }
 
+        public static List<ProductoDetalleEntidadMostrar> DevolverListaMaterialesProductoMostrar(int id)
+        {
+            List<ProductoDetalleEntidadMostrar> lista = new List<ProductoDetalleEntidadMostrar>();
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                //todo cambiar los campos a la base del proyecto
+                String sql = @"SELECT [Pre_Mat]
+                                 ,[Nom_Mat]
+                                 ,[Des_Mat]
+                                 ,[Uni_Med_Mat]
+                                 ,[Can_Mat_Uti]
+                                 ,[Id_Pro_Per]
+                                 ,[Id_Mat]
+                             FROM [dbo].[View_ProductoDetalleMostrar]
+                             WHERE [Id_Pro_Per] = @id";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                //repita la ejecucion mientras tenga datos
+                while (reader.Read())
+                {
+                    lista.Add(CargarDetalleProductoMostrar(reader));
+                }
+            }
+            return lista;
+        }
+
+        public static void GuardarProducto(ProductoEntidad productoBase)
+        {
+            
+        }
+
+        private static ProductoDetalleEntidadMostrar CargarDetalleProductoMostrar(SqlDataReader reader)
+        {
+            ProductoDetalleEntidadMostrar detalle = new ProductoDetalleEntidadMostrar();
+            detalle.Nombre = reader["Nom_Mat"].ToString() + " "+ reader["Des_Mat"].ToString();
+            detalle.Cantidad = Convert.ToInt32(reader["Can_Mat_Uti"]);
+            detalle.Precio = Convert.ToDouble(reader["Pre_Mat"]);
+            detalle.UM = reader["Uni_Med_Mat"].ToString();
+            detalle.Id = Convert.ToInt32(reader["Id_Mat"]);
+            return detalle;
+        }
+
+        public static List<ProductoDetalleEntidad> DevolverListaMaterialesProducto(int id)
+        {
+            List<ProductoDetalleEntidad> listaMateriales = new List<ProductoDetalleEntidad>();
+
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                //todo cambiar los campos a la base del proyecto
+                String sql = @"SELECT [Pre_Mat]
+                                 ,[Id_Mat_Uti]
+                                 ,[Can_Mat_Uti]
+                                 ,[Id_Pro_Per]
+                             FROM [dbo].[View_ProductoDetalle]
+                             WHERE [Id_Pro_Per] = @id";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                //repita la ejecucion mientras tenga datos
+                while (reader.Read())
+                {
+                    listaMateriales.Add(CargarDetalleProducto(reader));
+                }
+            }
+            return listaMateriales;
+        }
+
+        private static ProductoDetalleEntidad CargarDetalleProducto(IDataReader reader)
+        {
+            ProductoDetalleEntidad detalle = new ProductoDetalleEntidad();
+            detalle.Id_Producto = Convert.ToInt32(reader["Id_Pro_Per"]);
+            detalle.Id_Material = Convert.ToInt32(reader["Id_Mat_Uti"]);
+            detalle.Cantidad = Convert.ToInt32(reader["Can_Mat_Uti"]);
+            detalle.Precio = Convert.ToDouble(reader["Pre_Mat"]);
+            return detalle;
+
+        }
+
+        public static void EliminarProducto(int id)
+        {
+            EliminarDetallesProducto(id);
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"DELETE FROM [dbo].[Productos_Cabecera]
+                                WHERE [Id_Pro]= @productoId";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@productoId", id);
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        private static void EliminarDetallesProducto(int id)
+        {
+            using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
+            {
+                cn.Open();
+                String sql = @"DELETE FROM [dbo].[Productos_Detalle]
+                                WHERE [Id_Pro_Per]= @productoId";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@productoId", id);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public static List<ProductoEntidadMostrar> DevolverProductosPorNombre(string text)
         {
             List<ProductoEntidadMostrar> lista = new List<ProductoEntidadMostrar>();
@@ -122,7 +231,7 @@ namespace AluminiosDatos
             producto.Descripcion = Convert.ToString(reader["Des_Pro"]);
             producto.Precio = Convert.ToDouble(reader["Pre_Pro"]);
             producto.Cantidad = Convert.ToInt32(reader["Can_Pro"]);
-            
+
             return producto;
         }
     }

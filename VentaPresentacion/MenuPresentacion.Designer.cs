@@ -80,6 +80,7 @@
             this.buttonProductos.Text = "Productos";
             this.buttonProductos.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.buttonProductos.UseVisualStyleBackColor = false;
+            this.buttonProductos.Click += new System.EventHandler(this.buttonProductos_Click);
             // 
             // buttonEmpleados
             // 

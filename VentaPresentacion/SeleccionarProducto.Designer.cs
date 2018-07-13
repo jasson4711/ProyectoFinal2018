@@ -47,6 +47,7 @@
             this.radioButtonId = new System.Windows.Forms.RadioButton();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnVerMateriales = new System.Windows.Forms.Button();
             this.txtId = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
@@ -57,7 +58,7 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.btnVerMateriales = new System.Windows.Forms.Button();
+            this.btnEscogerProducto = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -260,6 +261,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnEscogerProducto);
             this.groupBox1.Controls.Add(this.btnVerMateriales);
             this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.label4);
@@ -277,6 +279,17 @@
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DATOS PRODUCTO";
+            // 
+            // btnVerMateriales
+            // 
+            this.btnVerMateriales.Enabled = false;
+            this.btnVerMateriales.Location = new System.Drawing.Point(407, 19);
+            this.btnVerMateriales.Name = "btnVerMateriales";
+            this.btnVerMateriales.Size = new System.Drawing.Size(136, 23);
+            this.btnVerMateriales.TabIndex = 15;
+            this.btnVerMateriales.Text = "Ver materiales";
+            this.btnVerMateriales.UseVisualStyleBackColor = true;
+            this.btnVerMateriales.Click += new System.EventHandler(this.btnVerMateriales_Click);
             // 
             // txtId
             // 
@@ -369,16 +382,15 @@
             this.txtNombre.Size = new System.Drawing.Size(427, 20);
             this.txtNombre.TabIndex = 3;
             // 
-            // btnVerMateriales
+            // btnEscogerProducto
             // 
-            this.btnVerMateriales.Enabled = false;
-            this.btnVerMateriales.Location = new System.Drawing.Point(407, 19);
-            this.btnVerMateriales.Name = "btnVerMateriales";
-            this.btnVerMateriales.Size = new System.Drawing.Size(136, 23);
-            this.btnVerMateriales.TabIndex = 15;
-            this.btnVerMateriales.Text = "Ver materiales";
-            this.btnVerMateriales.UseVisualStyleBackColor = true;
-            this.btnVerMateriales.Click += new System.EventHandler(this.btnVerMateriales_Click);
+            this.btnEscogerProducto.Location = new System.Drawing.Point(407, 131);
+            this.btnEscogerProducto.Name = "btnEscogerProducto";
+            this.btnEscogerProducto.Size = new System.Drawing.Size(135, 23);
+            this.btnEscogerProducto.TabIndex = 16;
+            this.btnEscogerProducto.Text = "Escoger producto";
+            this.btnEscogerProducto.UseVisualStyleBackColor = true;
+            this.btnEscogerProducto.Click += new System.EventHandler(this.btnEscogerProducto_Click);
             // 
             // SeleccionarProducto
             // 
@@ -441,5 +453,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Button btnVerMateriales;
+        private System.Windows.Forms.Button btnEscogerProducto;
     }
 }

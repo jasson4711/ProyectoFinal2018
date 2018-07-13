@@ -44,5 +44,11 @@ namespace VentaPresentacion
             GestionarEmpleados empleados = new GestionarEmpleados();
             empleados.ShowDialog();
         }
+
+        private void buttonProductos_Click(object sender, EventArgs e)
+        {
+            SeleccionarProducto productos = new SeleccionarProducto(false);
+            productos.ShowDialog();
+        }
     }
 }

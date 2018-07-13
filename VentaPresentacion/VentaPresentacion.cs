@@ -265,7 +265,7 @@ namespace VentaPresentacion
         {
             try
             {
-                SeleccionarProducto frm = new SeleccionarProducto();
+                SeleccionarProducto frm = new SeleccionarProducto(true);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     productoActual = ProductoNegocio.DevolverProductoPorID(frm.IdProducto);

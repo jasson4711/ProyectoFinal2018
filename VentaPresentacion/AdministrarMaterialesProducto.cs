@@ -17,8 +17,10 @@ namespace VentaPresentacion
         int Id;
         bool Nuevo;
         bool HayMateriales = false;
-        List<ProductoDetalleEntidadMostrar> listaDetalles = new List<ProductoDetalleEntidadMostrar>();
-        List<ProductoDetalleEntidad> listaDetallesBase = new List<ProductoDetalleEntidad>();
+        List<MaterialEntidad> listaMateriales = new List<MaterialEntidad>();
+
+        public List<ProductoDetalleEntidadMostrar> listaDetalles = new List<ProductoDetalleEntidadMostrar>();
+        public List<ProductoDetalleEntidad> listaDetallesBase = new List<ProductoDetalleEntidad>();
         public AdministrarMaterialesProducto(int id, bool nuevo)
         {
             InitializeComponent();
@@ -39,7 +41,9 @@ namespace VentaPresentacion
                 if (Nuevo)
                 {
                     CargarMateriales();
+                    dgvDetalleProducto.DataSource = listaDetalles;
                     btnQuitar.Enabled = true;
+                    txtCantidad.Enabled = true;
                     btnAñadir.Enabled = true;
                 }
                 else
@@ -51,7 +55,6 @@ namespace VentaPresentacion
 
                 }
                 BloquearEdicionDataGridMateriales();
-
 
             }
             catch
@@ -84,7 +87,8 @@ namespace VentaPresentacion
 
         private void CargarMateriales()
         {
-
+            listaMateriales = MaterialNegocio.DevolverListaMateriales();
+            dgvMateriales.DataSource = listaMateriales;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -108,32 +112,94 @@ namespace VentaPresentacion
                     }
 
                 }
+                else
+                {
+                    this.Close();
+                }
             }
 
         }
 
         private void GuardarDetallesProducto()
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch
+            {
+                ///*MessageBox.Show("Er*/ror: ¿Ya ha seleccionado un producto?");
+            }
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)
         {
-            AñadirMaterialAProducto();
+            if (txtCantidad.Text != "")
+            {
+                AñadirMaterialAProducto();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese la cantidad utilizada");
+            }
+
         }
 
         private void AñadirMaterialAProducto()
         {
             if (dgvMateriales.CurrentRow != null)
             {
-                ProductoDetalleEntidadMostrar detalle = ConvertirProductoDetalleEntidadMostrar();
-                AñadirDetalleAListaParaBase();
-                listaDetalles.Add(detalle);
-                CargarMaterialesProducto();
+
+                if (ValidarCantidad())
+                {
+                    int idMat = Convert.ToInt32(dgvMateriales.CurrentRow.Cells["Id"].Value.ToString());
+                    if (listaDetalles.Find(x => x.Id == idMat) != null)
+                    {
+                        listaDetalles.Find(x => x.Id == idMat).Cantidad += Convert.ToInt32(txtCantidad.Text);
+                        dgvDetalleProducto.DataSource = null;
+                        dgvDetalleProducto.DataSource = listaDetalles;
+                        txtCantidad.Text = "";
+                    }
+                    else
+                    {
+                        ProductoDetalleEntidadMostrar detalle = ConvertirProductoDetalleEntidadMostrar();
+                        AñadirDetalleAListaParaBase();
+                        listaDetalles.Add(detalle);
+                        dgvDetalleProducto.DataSource = null;
+                        dgvDetalleProducto.DataSource = listaDetalles;
+                        txtCantidad.Text = "";
+                    }
+                    HayMateriales = true;
+                }
+
             }
             else
             {
                 MessageBox.Show("Seleccione un material");
+            }
+        }
+
+        private bool ValidarCantidad()
+        {
+            int stock = Convert.ToInt32(dgvMateriales.CurrentRow.Cells["Stock"].Value.ToString());
+            int cantidad = Convert.ToInt32(txtCantidad.Text);
+            int idMat = Convert.ToInt32(dgvMateriales.CurrentRow.Cells["Id"].Value.ToString());
+            if (listaDetalles.Find(x => x.Id == idMat) != null)
+            {
+                cantidad += listaDetalles.Find(x => x.Id == idMat).Cantidad;
+
+            }
+            if (stock > cantidad)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("No dispone de la cantidad especificada");
+                txtCantidad.Focus();
+                txtCantidad.Text = "";
+                return false;
             }
         }
 
@@ -143,18 +209,18 @@ namespace VentaPresentacion
             detalle.Id_Material = Convert.ToInt32(dgvMateriales.CurrentRow.Cells["Id"].Value.ToString());
             detalle.Id_Producto = this.Id;
             detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
-            detalle.Precio = Convert.ToDouble(dgvMateriales.CurrentRow.Cells["Precio"].Value.ToString());
+            detalle.Precio = Convert.ToDouble(dgvMateriales.CurrentRow.Cells["Precio_Unitario"].Value.ToString());
             listaDetallesBase.Add(detalle);
         }
 
-        private ProductoDetalleEntidadMostrar ConvertirProductoDetalleEntidadMostrar()
+        public ProductoDetalleEntidadMostrar ConvertirProductoDetalleEntidadMostrar()
         {
             ProductoDetalleEntidadMostrar detalle = new ProductoDetalleEntidadMostrar();
             detalle.Nombre = dgvMateriales.CurrentRow.Cells["Nombre"].Value.ToString() + " " + dgvMateriales.CurrentRow.Cells["Descripcion"].Value.ToString();
             detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
-            detalle.Precio = Convert.ToDouble(dgvMateriales.CurrentRow.Cells["Precio"].Value.ToString());
+            detalle.Precio = Convert.ToDouble(dgvMateriales.CurrentRow.Cells["Precio_Unitario"].Value.ToString());
+            detalle.Id = Convert.ToInt32(dgvMateriales.CurrentRow.Cells["Id"].Value.ToString());
             detalle.UM = dgvMateriales.CurrentRow.Cells["UM"].Value.ToString();
-            txtCantidad.Text = "";
             return detalle;
         }
 
@@ -169,6 +235,10 @@ namespace VentaPresentacion
 
                     dgvDetalleProducto.DataSource = null;
                     dgvDetalleProducto.DataSource = listaDetalles;
+                    if (listaDetalles.Count == 0)
+                    {
+                        HayMateriales = false;
+                    }
                 }
             }
             else

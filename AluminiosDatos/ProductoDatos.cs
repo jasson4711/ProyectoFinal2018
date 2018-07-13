@@ -49,6 +49,7 @@ namespace AluminiosDatos
                                  ,[Uni_Med_Mat]
                                  ,[Can_Mat_Uti]
                                  ,[Id_Pro_Per]
+                                 ,[Id_Mat]
                              FROM [dbo].[View_ProductoDetalleMostrar]
                              WHERE [Id_Pro_Per] = @id";
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -63,6 +64,11 @@ namespace AluminiosDatos
             return lista;
         }
 
+        public static void GuardarProducto(ProductoEntidad productoBase)
+        {
+            
+        }
+
         private static ProductoDetalleEntidadMostrar CargarDetalleProductoMostrar(SqlDataReader reader)
         {
             ProductoDetalleEntidadMostrar detalle = new ProductoDetalleEntidadMostrar();
@@ -70,6 +76,7 @@ namespace AluminiosDatos
             detalle.Cantidad = Convert.ToInt32(reader["Can_Mat_Uti"]);
             detalle.Precio = Convert.ToDouble(reader["Pre_Mat"]);
             detalle.UM = reader["Uni_Med_Mat"].ToString();
+            detalle.Id = Convert.ToInt32(reader["Id_Mat"]);
             return detalle;
         }
 

@@ -13,7 +13,9 @@ namespace VentaPresentacion
 {
     public partial class SeleccionarProducto : Form
     {
+        bool Escoger;
         ProductoEntidadMostrar productoActual = new ProductoEntidadMostrar();
+        ProductoEntidad productoBase = new ProductoEntidad();
         List<ProductoEntidadMostrar> listaProductos = new List<ProductoEntidadMostrar>();
         List<ProductoDetalleEntidad> listaMateriales = new List<ProductoDetalleEntidad>();
         string opcionToolStrip = "";
@@ -26,9 +28,12 @@ namespace VentaPresentacion
             }
 
         }
-        public SeleccionarProducto()
+        public SeleccionarProducto(bool escoger)
         {
             InitializeComponent();
+            Escoger = escoger;
+            btnEscogerProducto.Visible = Escoger;
+
         }
 
         private void SeleccionarProducto_Load(object sender, EventArgs e)
@@ -282,24 +287,24 @@ namespace VentaPresentacion
             {
 
                 EstablecerProductoActual();
-                ProductoEntidad producto = EstablecerProductoEntidad();
+                productoBase = EstablecerProductoEntidad();
 
                 if (listaMateriales.Count > 0)
                 {
 
-                    //if (opcionToolStrip == "nuevo")
-                    //{
-                    //    ProductoNegocio.GuardarProducto(producto);
-                    //    MessageBox.Show("Nuevo producto guardado con exito");
-                    //}
-                    //else if (opcionToolStrip == "modificar")
-                    //{
-                    //    EstablecerProductoActual();
-                    //    ProductoNegocio.ActualizarProducto(producto);
-                    //    MessageBox.Show("Producto actualizado con exito");
-                    //}
-                    //dgvProductos.DataSource = null;
-                    //CargarListaProductos();
+                    if (opcionToolStrip == "nuevo")
+                    {
+                        ProductoNegocio.GuardarProducto(productoBase);
+                        MessageBox.Show("Nuevo producto guardado con exito");
+                    }
+                    else if (opcionToolStrip == "modificar")
+                    {
+                        EstablecerProductoActual();
+                        ProductoNegocio.ActualizarProducto(productoBase);
+                        MessageBox.Show("Producto actualizado con exito");
+                    }
+                    dgvProductos.DataSource = null;
+                    CargarListaProductos();
                 }
                 else
                 {
@@ -316,8 +321,6 @@ namespace VentaPresentacion
             producto.Nombre = productoActual.Nombre;
             producto.Descripcion = productoActual.Descripcion;
             producto.Cantidad = productoActual.Cantidad;
-            listaMateriales = ProductoNegocio.DevolverListaMaterialesProducto(producto.Id);
-            producto.listaMateriales = listaMateriales;
             return producto;
         }
 
@@ -350,14 +353,29 @@ namespace VentaPresentacion
             if (opcionToolStrip == "nuevo")
             {
                 frm = new AdministrarMaterialesProducto(productoActual.Id, true);
+                frm.listaDetallesBase = productoBase.listaMateriales;
+                //List<ProductoDetalleEntidadMostrar> lista = new List<ProductoDetalleEntidadMostrar();
+                //foreach (var item in productoBase.listaMateriales)
+                //{
+                //    lista.Add(frm.ConvertirProductoDetalleEntidadMostrar());
+                //}
+                //frm.listaDetalles = ConvertirListaMostrar()
             }
             else
             {
                 frm = new AdministrarMaterialesProducto(productoActual.Id, false);
             }
-            frm.ShowDialog();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                productoBase.listaMateriales = frm.listaDetallesBase;
+            }
             
                 
+        }
+
+        private void btnEscogerProducto_Click(object sender, EventArgs e)
+        {
+            EscogerProducto();
         }
     }
 }

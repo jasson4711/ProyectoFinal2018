@@ -44,7 +44,7 @@ namespace VentaPresentacion
                 }
                 else
                 {
-                    
+
                     CargarMaterialesProducto();
                     CargarMateriales();
                     BloquearEdicionDataGridDetalle();
@@ -84,7 +84,7 @@ namespace VentaPresentacion
 
         private void CargarMateriales()
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -95,7 +95,7 @@ namespace VentaPresentacion
             }
             else
             {
-                if(MessageBox.Show("¿Desea confirmar los materiales utilizados?","Confirmar",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("¿Desea confirmar los materiales utilizados?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
@@ -106,10 +106,10 @@ namespace VentaPresentacion
                     {
                         MessageBox.Show("No se pudo realizar la operación");
                     }
-                    
+
                 }
             }
-            
+
         }
 
         private void GuardarDetallesProducto()
@@ -160,13 +160,20 @@ namespace VentaPresentacion
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de quitar este material de la lista?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (dgvDetalleProducto.CurrentRow != null)
             {
-                listaDetalles.RemoveAt(dgvDetalleProducto.CurrentRow.Index);
-                listaDetallesBase.RemoveAt(dgvDetalleProducto.CurrentRow.Index);
+                if (MessageBox.Show("¿Está seguro de quitar este material de la lista?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    listaDetalles.RemoveAt(dgvDetalleProducto.CurrentRow.Index);
+                    listaDetallesBase.RemoveAt(dgvDetalleProducto.CurrentRow.Index);
 
-                dgvDetalleProducto.DataSource = null;
-                dgvDetalleProducto.DataSource = listaDetalles;
+                    dgvDetalleProducto.DataSource = null;
+                    dgvDetalleProducto.DataSource = listaDetalles;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un material para quitar");
             }
         }
     }

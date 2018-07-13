@@ -42,8 +42,15 @@ namespace VentaPresentacion
         private void ValidarDatos()
         {
             string contraseña = MetodosAyuda.Encriptacion.encriptarDatos(textBoxContraseña.Text);
-
-            empleadoActual = EmpleadoNegocio.DevolverEmpleadoPorCedula(textBoxUsuario.Text);
+            try
+            {
+                empleadoActual = EmpleadoNegocio.DevolverEmpleadoPorCedula(textBoxUsuario.Text);
+            }
+            catch
+            {
+                MessageBox.Show("No se ha podido establecer conexión a la base de datos");
+            }
+            
 
             if (contraseña.Equals(empleadoActual.Contraseña))
             {

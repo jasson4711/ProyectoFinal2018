@@ -23,6 +23,7 @@ namespace VentaPresentacion
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+            
         }
 
         private void buttonVentas_Click(object sender, EventArgs e)

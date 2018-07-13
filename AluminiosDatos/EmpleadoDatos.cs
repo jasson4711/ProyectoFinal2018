@@ -106,6 +106,7 @@ namespace AluminiosDatos
 
             using (SqlConnection cn = new SqlConnection(ConfiguracionApp.Default.ConexionVentasSql))
             {
+                
                 cn.Open();
                 String sql = @"SELECT [Id_Emp]
                              ,[Ape_Emp]
